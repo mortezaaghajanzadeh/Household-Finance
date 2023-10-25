@@ -52,9 +52,9 @@ def backward_iteration(Va, Pi, a_grid, y, r, beta, eis):
     
     return Va, g, c
 
-def policy_ss(Pi, a_grid, y, r, w, beta, eis, tol=1E-9):
+def policy_ss(Pi, a_grid, y, r, beta, eis, tol=1E-9):
     # initial guess for Va: assume consumption 5% of cash-on-hand, then get Va from envelope condition
-    coh = w*y[:, np.newaxis] + (1+r)*a_grid
+    coh = y[:, np.newaxis] + (1+r)*a_grid
     c = np.maximum(0.05*coh, 1E-9) # consumption must be strictly positive
     Va = (1+r) * c**(-1/eis)
     
@@ -108,27 +108,23 @@ def distribution_ss(Pi, g, a_grid, tol=1E-10):
         D = D_new
 
 
-def steady_state(a_grid, y_grid, Pi, beta, eis, r_min, r_max, alpha, delta, A, L):
+def steady_state(a_grid, y_grid, Pi, beta, eis, A_bar, r_min, r_max):
 	for _ in range(100):
 		r = (r_min + r_max)/2
-		w, K = Firm_FOC(r, L, alpha, delta, A)
-		va, g, c = policy_ss(Pi, a_grid, y_grid, r, w, beta, eis, tol = 1e-9)
+		va, g, c = policy_ss(Pi, a_grid, y_grid, r, beta, eis, tol = 1e-9)
 		dist = distribution_ss(Pi, g, a_grid, tol = 1e-9)
-  
 		demand = sum(sum(dist * g))
-		if demand > K:
+		if demand > A_bar:
 			r_max = r
 		else:
 			r_min = r
-		if np.abs(demand - K) < 1e-5:
+		
+		if np.abs(demand - A_bar) < 1e-4:
 			break
-	return r, K, w, va, g, c, dist
+
+	return r, g, c, dist
 
 
-def Firm_FOC(r, L, alpha, delta, A):
-	K = (alpha*A/(r+delta))**(1/(1-alpha)) * L
-	w = (1-alpha) * A * K**alpha * L**(-alpha)
-	return w, K
 
 
 def tauchenhussey(N,mu,rho,sigma, baseSigma):
@@ -252,24 +248,3 @@ def stationary_markov(Pi, tol=1E-14):
         if np.max(np.abs(pi_new - pi)) < tol:
             return pi_new
         pi = pi_new
-        
-        
-        
-def gini_coefficient(values, distribution):
-    """
-    Calculate the Gini coefficient of a dataset using the income values and corresponding weights.
-
-    Parameters:
-        income_values (array-like): The income values for each individual.
-        weights (array-like): The corresponding weights or proportions of the population.
-
-    Returns:
-        float: Gini coefficient value.
-    """
-    total_value = sum(values*distribution)
-    cumulative_population_percentage = distribution.cumsum()
-    cumulative_value_percentage = np.cumsum(sorted(values)*distribution) / total_value
-    area_under_lorenz_curve = np.trapz(cumulative_value_percentage, cumulative_population_percentage)
-    gini_coefficient = 1 - 2 * area_under_lorenz_curve
-
-    return gini_coefficient

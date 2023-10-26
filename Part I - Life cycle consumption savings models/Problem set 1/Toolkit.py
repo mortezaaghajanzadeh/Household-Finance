@@ -127,7 +127,8 @@ def steady_state(a_grid, y_grid, Pi, beta, eis, A_bar, r_min, r_max):
 
 
 
-def tauchenhussey(N,mu,rho,sigma, baseSigma):
+def tauchenhussey(N,mu,rho,sigma):
+	import numpy as np
 	""" 
 	Function tauchenhussey
 
@@ -159,7 +160,10 @@ def tauchenhussey(N,mu,rho,sigma, baseSigma):
 	This procedure is an implementation of Tauchen and Hussey's
 	algorithm, Econometrica (1991, Vol. 59(2), pp. 371-396)
 	"""
-	
+	w = 0.5 + rho/4
+	sigmaZ = sigma/np.sqrt(1-rho^2)
+	baseSigma = w*sigma +(1-w)*sigmaZ
+
 	Z     = sp.zeros((N,1))
 	Zprob = sp.zeros((N,N))
 	[Z,w] = gaussnorm(N,mu,baseSigma**2)

@@ -1,5 +1,6 @@
 #%%
 import Toolkit as tk
+import numpy as np
 #%%
 ########## Model Parameters ##########
 β = 0.945 ## Discount factor
@@ -9,14 +10,17 @@ a_bar = 150 ## upper bound of the grid for assets
 #######################################
 ########## Income Process Parameters ##########
 N = 3 ## number of states for the income process
-rho = 0.95 ## persistence of the income process
+rho = 1 ## persistence of the income process
 mu = 0.0 ## mean of the income process
-sigma_eps = 0.015 ## standard deviation of the income process
+σ_η = 0.015 ## standard deviation of the income process
 #######################################
 
+
+
+
 ########## Discritization Parameters ##########
-M = 1000 ## number of grid points for assets
-N = 3 ## number of grid points for income
+n_a = 100 ## number of grid points for assets
+n_z = 3 ## number of grid points for income
 #######################################
 
 ########## Convergence Parameters ##########
@@ -27,3 +31,8 @@ max_iter_v = 1000 ## maximum number of iterations
 max_iter_d = 100 ## maximum number of iterations
 max_iter_m = 100 ## maximum number of iterations
 #######################################
+#%%
+a_grid_0 = tk.discretize_assets_single_exp(ϕ, a_bar, n_a)
+z_grid,π = tk.tauchenhussey(n_z,mu,rho,σ_η)
+#%%
+z_grid

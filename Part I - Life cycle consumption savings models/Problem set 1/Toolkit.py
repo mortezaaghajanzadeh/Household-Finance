@@ -2,7 +2,11 @@ import scipy.stats as st
 import scipy as sp
 import numpy as np
 import numba
+from scipy.spatial import KDTree
 
+def dsearchn(value, array):
+    kdt = KDTree(value)
+    return np.array([int(kdt.query(v)[1]) for v in array])
 
 
 def discretize_assets_double_exp(amin, amax, n_a):

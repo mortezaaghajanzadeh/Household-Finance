@@ -26,15 +26,15 @@ N_z = 3 ## number of states for the permanent income process
 ρ_z = 1 ## persistence of the permanent income process
 σ_η = 0.015 ## standard deviation of the permanent income process
 Z,π_z = tk.tauchenhussey(N_z, μ_z, ρ_z, σ_η)
-Z = np.exp(Z)[0] ## permanent income process
+Z = np.exp(Z)[0].reshape(N_z,1) ## permanent income process
 
 ## Transitory Income Process
-N_ω = 5 ## number of states for the transitory income process
+N_ω = 3 ## number of states for the transitory income process
 μ_ω = 0.0 ## mean of the transitory income process
 ρ_ω = 0 ## iid process
 σ_ω = 0.1 ## standard deviation of the transitory income process
 ω,π_ω = tk.tauchenhussey(N_ω, μ_ω, ρ_ω, σ_ω)
-ω = np.exp(ω)[0] ## transitory income process
+ω = np.exp(ω)[0].reshape(N_ω,1) ## transitory income process
 
 π = np.kron(π_z, π_ω) ## transition matrix for the income process
 
@@ -43,18 +43,25 @@ N_ω = 5 ## number of states for the transitory income process
 N = 1000
 μ_A = 1.916 
 σ_A = 2.129
-A = np.exp(np.random.normal(μ_A - σ_A**2 / 2, σ_A, N))
+A = np.random.normal(μ_A - σ_A**2 / 2, σ_A, N)
+A = np.exp(A)
+A[A < 0] = 0
 
 μ_z = 0.0
 σ_z = 0.015
 Z0 = np.exp(np.random.normal(μ_z - σ_z**2 / 2 , σ_z, N))
+ε_z = np.random.normal(-σ_z**2/2, σ_z, (N,T))
 
+μ_ω = 0.0
+W0 = np.exp(np.random.normal(μ_ω - σ_ω**2 / 2 , σ_ω, N))
+ε_ω = np.random.normal(-σ_ω**2, σ_ω, (N,T))
 
+Y_lower = 4.8
 
 ########## Asset Grid ##########
 a_max = 150 ## upper bound of the grid for assets
 ϕ = 0  ## Borrowing Constraint
-N_a = 20 ## number of grid points for assets
+N_a = 1000 ## number of grid points for assets
 a_grid = np.linspace(ϕ, a_max, N_a).reshape(N_a,1) ## grid for assets
 a_grid = tk.discretize_assets_double_exp(ϕ, a_max, N_a).reshape(N_a,1)
 
@@ -146,19 +153,70 @@ for i in index:
 plt.legend()
 plt.title('Value Function at Working')
 plt.show()
+#%% Policy Functions
+index = range(0, t_r, 10)
+for i in index:
+    plt.plot(Xr[:,i],Cr[:,i],label = 'age  ' + str(start + t_w +i))
+plt.legend()
+plt.title('Consumption Policy at Retirement')
+plt.show()
+plt.close()
+index = range(0, t_w, 10)
+for i in index:
+    plt.plot(Xw[:int(N_a/2),i],Cw[:int(N_a/2),i],label = 'age  ' + str(start + i))
+plt.legend()
+plt.title('Consumption Policy at Working')
+plt.show()
+plt.close()
+
+
+
 #%% Simulation
 A_sim = np.zeros((N,T))
 Z_sim = np.zeros((N,T))
 ω_sim = np.zeros((N,T))
 income_sim = np.zeros((N,T))
-Yi_sim = np.zeros((N,T))
+Zi_sim = np.zeros((N,T),dtype=int)
 X_sim = np.zeros((N,T))
 C_sim = np.zeros((N,T))
-AL_sim = np.zeros((N,T))
 
 ## Initial Values
 A_sim[:,0] = A
 Z_sim[:,0] = Z0
-ω_sim[:,0] = ω[0]
+ω_sim[:,0] = W0
+Zi_sim[:,0] = tk.dsearchn(Z, Z_sim[:,0])
+for t in range(T):
+    t += 1
+    for i in range(N):
+        if t <= t_w:
+            income_sim[i,t-1] = max(Z_sim[i,t-1] * ω_sim[i,t-1] * g_t[t-1],Y_lower)
+            X_sim[i,t-1] = A_sim[i,t-1] * (1+rw) + income_sim[i,t-1] #cash in hand today
+            index = range(Zi_sim[i,t-1] * (N_a+1), (Zi_sim[i,t-1] + 1) * (N_a+1)) # index to pick out set of asset choices | on (nearest) income state
+            C_sim[i,t-1] = np.interp(X_sim[i,t-1],Xw[index,t-1], Cw[index,t-1])
+            # Next period possible incomes
+            ω_sim[i,t] = ε_ω[i,t-1] 
+            Z_sim[i,t] = np.exp(ρ_z * np.log(Z_sim[i,t-1]) + ε_z[i,t-1])
+            Zi_sim[i,t] = tk.dsearchn(Z, Z_sim[i,t].reshape(1,1))
+        else:
+            income_sim[i,t-1] = trend_pension + Z_sim[i,t_w-1]
+            X_sim[i,t-1] = A_sim[i,t-1] * (1+rr) + income_sim[i,t-1]
+            C_sim[i,t-1] = np.interp(X_sim[i,t-1],Xr[:,t-t_w-1], Cr[:,t-t_w-1])
+            ...
+        if t < T:
+            A_sim[i,t] = X_sim[i,t-1] - C_sim[i,t-1]
+    # if t == 1:
+    #     break
+    if t == t_w:
+        print("Simulated model for working age")
+    if t == t_w + t_r:
+        print("Simulated model for retirement age")
+
+# %%
+C_mean = np.sum(C_sim,axis=0)/N
+plt.plot(range(1,T+1),C_mean)
+A_mean = np.sum(A_sim,axis=0)/N
+plt.plot(range(1,T+1),A_mean)
+#%%
+A_sim[1,:]
 
 

@@ -63,7 +63,7 @@ a_max = 150 ## upper bound of the grid for assets
 ϕ = 0  ## Borrowing Constraint
 N_a = 1000 ## number of grid points for assets
 a_grid = np.linspace(ϕ, a_max, N_a).reshape(N_a,1) ## grid for assets
-a_grid = tk.discretize_assets_double_exp(ϕ, a_max, N_a).reshape(N_a,1)
+# a_grid = tk.discretize_assets_double_exp(ϕ, a_max, N_a).reshape(N_a,1)
 
 
 ######### Thresholds ##########
@@ -156,14 +156,16 @@ plt.show()
 #%% Policy Functions
 index = range(0, t_r, 10)
 for i in index:
-    plt.plot(Xr[:,i],Cr[:,i],label = 'age  ' + str(start + t_w +i))
+    plt.plot(Xr[:N_a+1,i],Cr[:N_a+1,i],label = 'age  ' + str(start + t_w +i))
+plt.plot(Xr[:int(N_a/10)+1,i],Xr[:int(N_a/10)+1,i],label = '45 degree line',linestyle='--')
 plt.legend()
 plt.title('Consumption Policy at Retirement')
 plt.show()
 plt.close()
 index = range(0, t_w, 10)
 for i in index:
-    plt.plot(Xw[:int(N_a/2),i],Cw[:int(N_a/2),i],label = 'age  ' + str(start + i))
+    plt.plot(Xw[:N_a+1,i],Cw[:N_a+1,i],label = 'age  ' + str(start + i))
+plt.plot(Xw[:int(N_a/10)+1,i],Xw[:int(N_a/10)+1,i],label = '45 degree line',linestyle='--')
 plt.legend()
 plt.title('Consumption Policy at Working')
 plt.show()

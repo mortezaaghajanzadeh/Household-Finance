@@ -3,6 +3,7 @@ import scipy as sp
 import numpy as np
 import numba
 from scipy.spatial import KDTree
+import matplotlib.pyplot as plt
 
 def dsearchn(value, array):
     kdt = KDTree(value)
@@ -36,100 +37,165 @@ def discretize_assets_single_exp(amin, amax, n_a):
 	return A
 
 
-def backward_iteration(Va, Pi, a_grid, y, r, beta, eis):
-    # step 1: discounting and expectations
-    Wa = (beta * Pi) @ Va
-    
-    # step 2: solving for asset policy using the first-order condition
-    c_endog = Wa**(-eis)
-    coh = y[:, np.newaxis] + (1+r)*a_grid
-    
-    g = np.empty_like(coh)
-    for e in range(len(y)):
-        g[e, :] = np.interp(coh[e, :], c_endog[e, :] + a_grid, a_grid)
+# retirement value function
+
+def retirement(N_a,a_grid, rr, β, γ, t_r, t_w, g_t, λ,vmin):
+    Vr = np.zeros((N_a+1, t_r))
+    Cr = np.zeros((N_a+1, t_r))
+    Xr = np.zeros((N_a+1, t_r))
+
+    Xr[1:,-1:] = a_grid + 0.01
+    Cr[1:,-1:] = Xr[1:,-1:]
+    Vr[1:,-1:] = Cr[1:,-1:]**(1-γ)/(1-γ)
+    Vr[0,:] = vmin
+
+    trend_pension = λ * g_t[t_w-1]
+
+    for t in range(t_r-1,0, -1):
+        t -= 1
+        # I have to think more about the pension income
+        pension = trend_pension
+
+        Xp = a_grid * (1 + rr) + pension ## cash-on-hand tomorrow
+
+        Cp = np.interp(Xp,Xr[:,t+1], Cr[:,t+1]) # interpolate consumption
+        # Cp = interp(Xr[:,t+1], Cr[:,t+1])(Xp) # interpolate consumption
+
+        # Construct tomorrows value and tomorrows derivative wrt assets
+        EV = β * np.interp(Xp,Xr[:,t+1], Vr[:,t+1])
+        dV = β * Cp ** (-γ) * (1 + rr)
+
+        Cr[1:,t:t+1] = dV ** (-1/γ) # Use FOC to find consumption policy
+        Xr[1:,t:t+1] = Cr[1:,t:t+1] + a_grid # Implied cash on hand
+        Vr[1:,t:t+1] = (Cp ** (1-γ) - 1 )/(1-γ) + EV
+    return Vr, Cr, Xr
+
+# working value function
+def working(N_z, N_ω, N_a, a_grid, Z, ω, π, rw, rr, Xr, Cr, Vr, β, γ, t_w, g_t,λ,vmin):
+
+    Vw = np.zeros((N_z * (N_a+1), t_w))
+    Cw = np.zeros((N_z * (N_a+1), t_w))
+    Xw = np.zeros((N_z * (N_a+1), t_w))
+
+    for i in range(N_z):
+        Vw[i * (N_a+1),:] = vmin
+    pension = λ * g_t[t_w-1]
+
+    for t in range(t_w, 0, -1):
+        if t == t_w: # Last period working
+            Xp = a_grid * (1 + rr) + pension
+            Cp = np.interp(Xp,Xr[:,0], Cr[:,0])
+            ## % Construct tomorrows value and tomorrows derivative wrt assets (no expectation)
+            EV = β * np.interp(Xp,Xr[:,0], Vr[:,0])
+            dV = β * Cp ** (-γ) * (1 + rr)
+            for i in range(N_z):
+                index = range(i * (N_a+1) + 1, (i + 1) * (N_a+1))
+                Cw[index  ,t-1:t] = dV ** (-1/γ) # Use FOC to find consumption policy
+                Xw[index ,t-1:t] =  Cw[index ,t-1:t] + a_grid
+                Vw[index ,t-1:t] = (Cp ** (1-γ) - 1 )/(1-γ) + EV
+        else:
+            Cp = np.zeros((N_a, N_z * N_ω))
+            Vp = np.zeros((N_a, N_z * N_ω))
+            for i in range(N_z):
+                for j in range(N_ω): # loop over transitory income states
+                    Xp = a_grid * (1 + rw) + Z[i] * ω[j] * g_t[t] # Implied cash on hand tomorrow 
+                    index = range(i * N_a + i, (i + 1) * (N_a + 1) )
+                    index_2 = range(i * N_ω + j,i * N_ω + j + 1)
+                    Cp[:,index_2] = np.interp(Xp,Xw[index,t], Cw[index,t])
+                    Vp[:,index_2] = np.interp(Xp,Xw[index,t], Vw[index,t])
+            dVp = Cp ** (-γ)
+            # Construct tomorrows value and tomorrows derivative wrt assets
+            EV = β * np.dot(Vp , π.T)
+            dV = β * np.dot(dVp , π.T) * (1 + rw) # RHS of Euler equation
+            for i in range(N_z):
+                index = range(i * (N_a+1) + 1, (i + 1) * (N_a+1))
+                Cw[index  ,t-1:t] = dV[:,i:i+1] ** (-1/γ) # Use FOC to find consumption
+                Xw[index ,t-1:t] =  Cw[index ,t-1:t] + a_grid # Implied cash on hand
+                Vw[index ,t-1:t] = (Cw[index ,t-1:t] ** (1-γ) - 1 )/(1-γ) + EV[:,i:i+1] 
+    return Vw, Cw, Xw
+
+
+
+# Simulation
+
+def simulate_model(T, rw, rr, Xw, Cw, Y_lower, t_w, t_r, g_t, ρ_z, N, N_a, Xr, Cr, Z, λ, ε_z, ε_ω, A, Z0,plot=True):
+    A_sim = np.zeros((N,T))
+    Z_sim = np.zeros((N,T))
+    ω_sim = np.zeros((N,T))
+    income_sim = np.zeros((N,T))
+    Zi_sim = np.zeros((N,T),dtype=int)
+    X_sim = np.zeros((N,T))
+    C_sim = np.zeros((N,T))
+
+    ## Initial Values
+    A_sim[:,0] = A
+    Z_sim[:,0] = Z0
+    ω_sim[:,0] = ε_ω[:,0]
+    Zi_sim[:,0] = dsearchn(Z, Z_sim[:,0])
+    for t in range(T):
+        t += 1
+        for i in range(N):
+            if t <= t_w:
+                income_sim[i,t-1] = max(Z_sim[i,t-1] * ω_sim[i,t-1] * g_t[t-1],Y_lower)
+                X_sim[i,t-1] = A_sim[i,t-1] * (1+rw) + income_sim[i,t-1] #cash in hand today
+                index = range(Zi_sim[i,t-1] * (N_a+1), (Zi_sim[i,t-1] + 1) * (N_a+1)) # index to pick out set of asset choices | on (nearest) income state
+                C_sim[i,t-1] = np.interp(X_sim[i,t-1],Xw[index,t-1], Cw[index,t-1])
+                # Next period possible incomes
+                ω_sim[i,t] = ε_ω[i,t-1]
+                Z_sim[i,t] = np.exp(ρ_z * np.log(Z_sim[i,t-1]) + ε_z[i,t-1])
+                Zi_sim[i,t] = dsearchn(Z, Z_sim[i,t].reshape(1,1))
+            else:
+                income_sim[i,t-1] = λ * g_t[t_w-1] + Z_sim[i,t_w-1]
+                X_sim[i,t-1] = A_sim[i,t-1] * (1+rr) + income_sim[i,t-1]
+                C_sim[i,t-1] = np.interp(X_sim[i,t-1],Xr[:,t-t_w-1], Cr[:,t-t_w-1])
+                ...
+            if t < T:
+                A_sim[i,t] = X_sim[i,t-1] - C_sim[i,t-1]
+        if t == t_w:
+            print("Simulated model for working age")
+        if t == t_w + t_r:
+            print("Simulated model for retirement age")
+    if plot:
+        C_mean = np.sum(C_sim,axis=0)/N
+        plt.plot(range(1,T+1),C_mean)
+        A_mean = np.sum(A_sim,axis=0)/N
+        plt.plot(range(1,T+1),A_mean)
+    return A_sim, Z_sim, ω_sim, income_sim, Zi_sim, X_sim, C_sim
+
+# Plotting
+def plot_policy_over_ages(X,C,T,label, N_a, start, t_base,line45=True, yaxis='Consumption'):
+    index = range(0, T, 10)
+    for i in index:
+        plt.plot(X[:N_a+1,i],C[:N_a+1,i],label = 'age  ' + str(start + t_base +i))
+    if line45:plt.plot(X[:int(N_a/10)+1,i],X[:int(N_a/10)+1,i],label = '45 degree line',linestyle='--')
+    plt.xlabel('X')
+    plt.ylabel(yaxis)
+    plt.grid()
+    plt.legend()
+    plt.title('Policy function at {}'.format(label))
+    plt.show()
+    plt.close()
+
+def plot_policy_over_states(X,C,Z,age,t_w,start,N_z,N_a,line45=True,yaxis='Consumption'):
+    if age > t_w + start:
+        print("Age is greater than working age, please use plot_policy_over_ages")
+    else:
+        label = 'Working'
+        t = age - start
+        index = range(0, N_z)
+        for i in index:
+            plt.plot(X[i * (N_a+1):(i+1) * (N_a+1),t],C[i * (N_a+1):(i+1) * (N_a+1),t],label = 'z = ' + str(round(Z[i][0],2)))
+        if line45:     plt.plot(X[:int(N_a/10)+1,t],X[:int(N_a/10)+1,t],label = '45 degree line',linestyle='--')
+        plt.legend()
+        plt.grid()
+        plt.xlabel('X')
+        plt.ylabel(yaxis)
         
-    # step 3: enforcing the borrowing constraint and backing out consumption
-    g = np.maximum(g, a_grid[0])
-    c = np.maximum(coh - g, 1E-9) # consumption must be strictly positive
-    # step 4: using the envelope condition to recover the derivative of the value function
-    Va = (1+r) * c**(-1/eis)
-    
-    return Va, g, c
+        plt.title('Policy function at {}'.format(label))
+        plt.show()
+        plt.close()
 
-def policy_ss(Pi, a_grid, y, r, beta, eis, tol=1E-9):
-    # initial guess for Va: assume consumption 5% of cash-on-hand, then get Va from envelope condition
-    coh = y[:, np.newaxis] + (1+r)*a_grid
-    c = np.maximum(0.05*coh, 1E-9) # consumption must be strictly positive
-    Va = (1+r) * c**(-1/eis)
-    
-    # iterate until maximum distance between two iterations falls below tol, fail-safe max of 10,000 iterations
-    for it in range(10_000):
-        Va, g, c = backward_iteration(Va, Pi, a_grid, y, r, beta, eis)
-        
-        # after iteration 0, can compare new policy function to old one
-        if it > 0 and np.max(np.abs(g - g_old)) < tol:
-            return Va, g, c
-        
-        g_old = g
-		
-
-
-def get_lottery(g, a_grid):
-    # step 1: find the i such that a' lies between gridpoints a_k and a_(k+1)
-    index_k = np.searchsorted(a_grid, g) - 1
-    
-    # step 2: obtain lottery probabilities pi
-    alpha = (a_grid[index_k+1] - g)/(a_grid[index_k+1] - a_grid[index_k])
-    
-    return index_k, alpha
-
-@numba.njit
-def forward_iteration(D, index_k, alpha, Pi):
-    Dend = np.zeros_like(D)
-    for e in range(index_k.shape[0]):
-        for a in range(index_k.shape[1]):
-            # send pi(e,a) of the mass to gridpoint i(e,a)
-            Dend[e, index_k[e,a]] += alpha[e,a]*D[e,a]
-            
-            # send 1-pi(e,a) of the mass to gridpoint i(e,a)+1
-            Dend[e, index_k[e,a]+1] += (1-alpha[e,a])*D[e,a]
-            
-    return Pi.T @ Dend
-
-
-def distribution_ss(Pi, g, a_grid, tol=1E-10):
-    index_k, alpha = get_lottery(g, a_grid)
-    
-    # as initial D, use stationary distribution for e, plus uniform over a
-    pi = stationary_markov(Pi)
-    D = pi[:, np.newaxis] * np.ones_like(a_grid) / len(a_grid)
-    
-    # now iterate until convergence to acceptable threshold
-    for _ in range(20_000):
-        D_new = forward_iteration(D, index_k, alpha, Pi)
-        if np.max(np.abs(D_new - D)) < tol:
-            return D_new
-        D = D_new
-
-
-def steady_state(a_grid, y_grid, Pi, beta, eis, A_bar, r_min, r_max):
-	for _ in range(100):
-		r = (r_min + r_max)/2
-		va, g, c = policy_ss(Pi, a_grid, y_grid, r, beta, eis, tol = 1e-9)
-		dist = distribution_ss(Pi, g, a_grid, tol = 1e-9)
-		demand = sum(sum(dist * g))
-		if demand > A_bar:
-			r_max = r
-		else:
-			r_min = r
-		
-		if np.abs(demand - A_bar) < 1e-4:
-			break
-
-	return r, g, c, dist
-
-
-
+# Tau Chen's code
 
 def tauchenhussey(N,mu,rho,sigma):
 	import numpy as np

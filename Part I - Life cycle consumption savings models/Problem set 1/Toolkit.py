@@ -59,7 +59,6 @@ def retirement(N_a,a_grid, rr, β, γ, t_r, t_w, g_t, λ,vmin):
         Xp = a_grid * (1 + rr) + pension ## cash-on-hand tomorrow
 
         Cp = np.interp(Xp,Xr[:,t+1], Cr[:,t+1]) # interpolate consumption
-        # Cp = interp(Xr[:,t+1], Cr[:,t+1])(Xp) # interpolate consumption
 
         # Construct tomorrows value and tomorrows derivative wrt assets
         EV = β * np.interp(Xp,Xr[:,t+1], Vr[:,t+1])
@@ -118,7 +117,7 @@ def working(N_z, N_ω, N_a, a_grid, Z, ω, π, rw, rr, Xr, Cr, Vr, β, γ, t_w, 
 
 # Simulation
 
-def simulate_model(T, rw, rr, Xw, Cw, Y_lower, t_w, t_r, g_t, ρ_z, N, N_a, Xr, Cr, Z, λ, ε_z, ε_ω, A, Z0,plot=True):
+def simulate_model(T, rw, rr, Xw, Cw, Y_lower, t_w, t_r, g_t, ρ_z, N, N_a, Xr, Cr, Z, λ, ε_z, ε_ω, A, Z0,start,plot=True):
     A_sim = np.zeros((N,T))
     Z_sim = np.zeros((N,T))
     ω_sim = np.zeros((N,T))
@@ -157,17 +156,24 @@ def simulate_model(T, rw, rr, Xw, Cw, Y_lower, t_w, t_r, g_t, ρ_z, N, N_a, Xr, 
             print("Simulated model for retirement age")
     if plot:
         C_mean = np.sum(C_sim,axis=0)/N
-        plt.plot(range(1,T+1),C_mean)
+        plt.plot(range(start,start + T),C_mean)
         A_mean = np.sum(A_sim,axis=0)/N
-        plt.plot(range(1,T+1),A_mean)
+        plt.plot(range(start,start + T),A_mean)
+        I_mean = np.sum(income_sim,axis=0)/N
+        plt.plot(range(start,start + T),I_mean)
+        plt.plot(range(start,start + T),np.zeros(T),linestyle='--')
+        plt.legend(['Consumption','Assets','Income'])
+        
+        plt.grid()
+        
     return A_sim, Z_sim, ω_sim, income_sim, Zi_sim, X_sim, C_sim
 
 # Plotting
 def plot_policy_over_ages(X,C,T,label, N_a, start, t_base,line45=True, yaxis='Consumption'):
-    index = range(0, T, 10)
+    index = range(0, T, 5)
     for i in index:
         plt.plot(X[:N_a+1,i],C[:N_a+1,i],label = 'age  ' + str(start + t_base +i))
-    if line45:plt.plot(X[:int(N_a/10)+1,i],X[:int(N_a/10)+1,i],label = '45 degree line',linestyle='--')
+    if line45:plt.plot(X[:int(N_a/3)+1,i],X[:int(N_a/3)+1,i],label = '45 degree line',linestyle='--')
     plt.xlabel('X')
     plt.ylabel(yaxis)
     plt.grid()
@@ -185,7 +191,7 @@ def plot_policy_over_states(X,C,Z,age,t_w,start,N_z,N_a,line45=True,yaxis='Consu
         index = range(0, N_z)
         for i in index:
             plt.plot(X[i * (N_a+1):(i+1) * (N_a+1),t],C[i * (N_a+1):(i+1) * (N_a+1),t],label = 'z = ' + str(round(Z[i][0],2)))
-        if line45:     plt.plot(X[:int(N_a/10)+1,t],X[:int(N_a/10)+1,t],label = '45 degree line',linestyle='--')
+        if line45:     plt.plot(X[:int(N_a/3)+1,t],X[:int(N_a/3)+1,t],label = '45 degree line',linestyle='--')
         plt.legend()
         plt.grid()
         plt.xlabel('X')

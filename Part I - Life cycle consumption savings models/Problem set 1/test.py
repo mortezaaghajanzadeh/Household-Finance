@@ -43,7 +43,21 @@ N_ω = 10 ## number of states for the transitory income process
 ω,π_ω = tk.tauchenhussey(N_ω, μ_ω, ρ_ω, σ_ω)
 ω = np.exp(ω)[0].reshape(N_ω,1) ## transitory income process
 
+## Shock in the interest rate
+N_r = 3 ## number of states for the interest rate process
+μ = 0.04
+r_f = 0.02
+μ_r = np.log(r_f) + μ
+σ_r = 0.18
+r,π_r = tk.tauchenhussey(N_r, μ_r, 0, σ_r)
+r = np.exp(r)[0].reshape(N_r,1) ## transitory income process
+print(r)
+
+
+
+
 π = np.kron(π_z, π_ω) ## transition matrix for the income process
+
 
 ########## Simulation Parameters ##########
 
@@ -65,14 +79,20 @@ W0 = np.exp(np.random.normal(μ_ω - σ_ω**2 / 2 , σ_ω, N))
 
 Y_lower = 4.8
 
+
+
+σ_r = 0.18
+ε_r = np.exp(np.random.normal(-σ_r**2, σ_r, (N,T)))
+
 ########## Asset Grid ##########
 a_max = 150 ## upper bound of the grid for assets
 ϕ = 0  ## Borrowing Constraint
-N_a = 1000 ## number of grid points for assets
+N_a = 15 ## number of grid points for assets
 a_grid = np.linspace(ϕ, a_max, N_a).reshape(N_a,1) ## grid for assets
 # a_grid = tk.discretize_assets_double_exp(ϕ, a_max, N_a).reshape(N_a,1)
 
-N_α = 100
+
+N_α = 5
 α_grid = np.linspace(0,1,N_α)
 
 ######### Thresholds ##########
@@ -94,14 +114,55 @@ vmin = -1.e10
 # print("--- %s seconds ---" % (time.time() - start_time))
 # %%
 
-Vr = np.zeros((N_a+1, t_r))
-Cr = np.zeros((N_a+1, t_r))
-Xr = np.zeros((N_a+1, t_r))
+Vr = np.zeros((N_r * (N_a+1), t_r))
+Cr = np.zeros((N_r * (N_a+1), t_r))
+Xr = np.zeros((N_r * (N_a+1), t_r))
 
-Xr[1:,-1:] = a_grid + 0.01
-Cr[1:,-1:] = Xr[1:,-1:]
-Vr[1:,-1:] = Cr[1:,-1:]**(1-γ)/(1-γ)
-Vr[0,:] = vmin
+# Set the last period
+for i in range(N_r):
+    Vr[i*(N_a+1),:] = vmin
+    index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
+    Xr[index,-1:] = a_grid + 0.01
+    Cr[index,-1:] = Xr[index,-1:]
+    Vr[index,-1:] = Cr[index,-1:]**(1-γ)/(1-γ)
+
+# backward iteration
+for t in range(t_r-1,0, -1):
+    t -= 1
+    # I have to think more about the pension income
+    pension = trend_pension
+    
+    Cp = np.zeros((N_a,N_r))
+    Xp = np.zeros((N_a,N_r))
+    for i in range(N_r):
+        Xp = a_grid * (1 + r[i]) + pension ## cash-on-hand tomorrow
+        index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
+
+
+        Cp = np.interp(Xp,Xr[:,t+1], Cr[:,t+1]) # interpolate consumption
+
+
+
+    Xp = a_grid * (1 + rr) + pension ## cash-on-hand tomorrow
+
+    Cp = np.interp(Xp,Xr[:,t+1], Cr[:,t+1]) # interpolate consumption
+
+    # Construct tomorrows value and tomorrows derivative wrt assets
+    EV = β * np.interp(Xp,Xr[:,t+1], Vr[:,t+1])
+    dV = β * Cp ** (-γ) * (1 + rr)
+
+    Cr[1:,t:t+1] = dV ** (-1/γ) # Use FOC to find consumption policy
+    Xr[1:,t:t+1] = Cr[1:,t:t+1] + a_grid # Implied cash on hand
+    Vr[1:,t:t+1] = (Cp ** (1-γ) - 1 )/(1-γ) + EV
+
+
+#%%
+# Xr[1:,-1:] = a_grid + 0.01
+# Cr[1:,-1:] = Xr[1:,-1:]
+# Vr[1:,-1:] = Cr[1:,-1:]**(1-γ)/(1-γ)
+
+
+# Vr[0,:] = vmin
 
 trend_pension = λ * g_t[t_w-1]
 

@@ -117,13 +117,15 @@ vmin = -1.e10
 Vr = np.zeros((N_r * (N_a+1), t_r))
 Cr = np.zeros((N_r * (N_a+1), t_r))
 Xr = np.zeros((N_r * (N_a+1), t_r))
+Ar = np.zeros((N_r * (N_a+1), t_r))
 
 # Set the last period
 for i in range(N_r):
     Vr[i*(N_a+1),:] = vmin
     index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
-    Xr[index,-1:] = a_grid + 0.01
+    Xr[index,-1:] = a_grid 
     Cr[index,-1:] = Xr[index,-1:]
+    Ar[index,-1:] = Xr[index,-1:] - Cr[index,-1:]
     Vr[index,-1:] = Cr[index,-1:]**(1-γ)/(1-γ)
 
 # backward iteration
@@ -137,11 +139,11 @@ for t in range(t_r-1,0, -1):
     for i in range(N_r):
         Xp = a_grid * (1 + r[i]) + pension ## cash-on-hand tomorrow
         index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
+        print(index)
+        
+        # Cp = np.interp(Xp,Xr[:,t+1], Cr[:,t+1]) # interpolate consumption
 
-
-        Cp = np.interp(Xp,Xr[:,t+1], Cr[:,t+1]) # interpolate consumption
-
-
+    break
 
     Xp = a_grid * (1 + rr) + pension ## cash-on-hand tomorrow
 
@@ -154,6 +156,13 @@ for t in range(t_r-1,0, -1):
     Cr[1:,t:t+1] = dV ** (-1/γ) # Use FOC to find consumption policy
     Xr[1:,t:t+1] = Cr[1:,t:t+1] + a_grid # Implied cash on hand
     Vr[1:,t:t+1] = (Cp ** (1-γ) - 1 )/(1-γ) + EV
+#%%
+α = 0.9
+Ap = a_grid
+np.multiply((a_grid*(1+r_f + α * (r-r_f).T ) + pension - Ap) ** (-γ),np.repeat((r-r_f).T,N_a,0) ) @ π_r.T
+
+             
+
 
 
 #%%

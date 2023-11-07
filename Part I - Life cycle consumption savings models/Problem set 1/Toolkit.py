@@ -44,7 +44,7 @@ def retirement(N_a,a_grid, rr, β, γ, t_r, t_w, g_t, λ,vmin):
     Cr = np.zeros((N_a+1, t_r))
     Xr = np.zeros((N_a+1, t_r))
 
-    Xr[1:,-1:] = a_grid + 0.01
+    Xr[1:,-1:] = a_grid 
     Cr[1:,-1:] = Xr[1:,-1:]
     Vr[1:,-1:] = Cr[1:,-1:]**(1-γ)/(1-γ)
     Vr[0,:] = vmin

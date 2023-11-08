@@ -5,9 +5,58 @@ import numba
 from scipy.spatial import KDTree
 import matplotlib.pyplot as plt
 
-def dsearchn(value, array):
-    kdt = KDTree(value)
-    return np.array([int(kdt.query(v)[1]) for v in array])
+vmin = -1.e10
+epsilon = 1e-10
+
+def gen_results(T,β,γ,start,t_w,t_r,λ,rw,rr,N_z,μ_z,ρ_z,σ_η,N_ω,μ_ω,ρ_ω,σ_ω,N_a,a_max,ϕ,N,μ_A,σ_A,Y_lower,σ_z,g_t,plot=False,set_seed = 13990509):
+   
+    
+   ######### Thresholds ##########
+    
+    
+    Z, ω, π, A, Z0, ε_z, ε_ω,a_grid = initialize(T,N_z, μ_z, ρ_z, σ_η,N_ω,μ_ω,ρ_ω,σ_ω,N_a,a_max,ϕ,N,μ_A,σ_A,σ_z,set_seed = set_seed)
+
+    Vr, Cr, Xr = retirement(N_a,a_grid, rr, β, γ, t_r, t_w, g_t, λ,vmin)
+    Vw, Cw, Xw = working(N_z, N_ω, N_a, a_grid, Z, ω, π, rw, rr, Xr, Cr, Vr, β, γ, t_w, g_t,λ,vmin)
+    A_sim, Z_sim, ω_sim, income_sim, Zi_sim, X_sim, C_sim =  simulate_model(T, rw, rr, Xw, Cw, Y_lower, t_w, t_r, g_t, ρ_z, N, N_a, Xr, Cr, Z, λ, ε_z, ε_ω, A, Z0,start,plot=plot)
+    return Vr, Cr, Xr, Vw, Cw, Xw, A_sim, Z_sim, ω_sim, income_sim, Zi_sim, X_sim, C_sim
+
+
+
+def initialize(T,N_z, μ_z, ρ_z, σ_η,N_ω,μ_ω,ρ_ω,σ_ω,N_a,a_max,ϕ,N,μ_A,σ_A,σ_z,set_seed = 13990509):
+    np.random.seed(set_seed)
+
+
+    ## Permanent Income Process
+    
+    Z,π_z = tauchenhussey(N_z, μ_z, ρ_z, σ_η)
+    Z = np.exp(Z)[0].reshape(N_z,1) ## permanent income process
+
+    ## Transitory Income Process
+    
+    ω,π_ω = tauchenhussey(N_ω, μ_ω, ρ_ω, σ_ω)
+    ω = np.exp(ω)[0].reshape(N_ω,1) ## transitory income process
+
+    π = np.kron(π_z, π_ω) ## transition matrix for the income process
+    ########## Simulation Parameters ##########
+
+    
+    A = np.random.normal(μ_A - σ_A**2 / 2, σ_A, N)
+    A = np.exp(A)
+    A[A < 0] = 0
+
+    
+    Z0 = np.exp(np.random.normal(μ_z - σ_z**2 / 2 , σ_z, N))
+    ε_z = np.random.normal(-σ_z**2/2, σ_z, (N,T))
+
+    ε_ω = np.exp(np.random.normal(μ_ω-σ_ω**2, σ_ω, (N,T)))
+
+    
+    a_grid = discretize_assets_single_exp(ϕ + epsilon, a_max, N_a).reshape(N_a,1) ## double exponential grid for assets
+    # a_grid = np.linspace(ϕ, a_max, N_a).reshape(N_a,1) ## linear grid for assets
+    
+    return Z, ω, π, A, Z0, ε_z, ε_ω,a_grid
+
 
 
 def discretize_assets_double_exp(amin, amax, n_a):
@@ -118,13 +167,13 @@ def working(N_z, N_ω, N_a, a_grid, Z, ω, π, rw, rr, Xr, Cr, Vr, β, γ, t_w, 
 # Simulation
 
 def simulate_model(T, rw, rr, Xw, Cw, Y_lower, t_w, t_r, g_t, ρ_z, N, N_a, Xr, Cr, Z, λ, ε_z, ε_ω, A, Z0,start,plot=True):
-    A_sim = np.zeros((N,T))
-    Z_sim = np.zeros((N,T))
-    ω_sim = np.zeros((N,T))
-    income_sim = np.zeros((N,T))
-    Zi_sim = np.zeros((N,T),dtype=int)
-    X_sim = np.zeros((N,T))
-    C_sim = np.zeros((N,T))
+    A_sim = np.zeros((N,T+1))
+    Z_sim = np.zeros((N,T+1))
+    ω_sim = np.zeros((N,T+1))
+    income_sim = np.zeros((N,T+1))
+    Zi_sim = np.zeros((N,T+1),dtype=int)
+    X_sim = np.zeros((N,T+1))
+    C_sim = np.zeros((N,T+1))
 
     ## Initial Values
     A_sim[:,0] = A
@@ -150,18 +199,26 @@ def simulate_model(T, rw, rr, Xw, Cw, Y_lower, t_w, t_r, g_t, ρ_z, N, N_a, Xr, 
                 ...
             if t < T:
                 A_sim[i,t] = X_sim[i,t-1] - C_sim[i,t-1]
+            if t == t_w + t_r:
+                income_sim[i,t] = λ * g_t[t_w-1] + Z_sim[i,t_w-1]
+                C_sim[i,t] = A_sim[i,t-1] + income_sim[i,t]
+                A_sim[i,t] = 0
+                X_sim[i,t] = C_sim[i,t]
+                 
         if t == t_w:
             print("Simulated model for working age")
         if t == t_w + t_r:
             print("Simulated model for retirement age")
     if plot:
         C_mean = np.sum(C_sim,axis=0)/N
-        plt.plot(range(start,start + T),C_mean)
+        plt.plot(range(start,start + T+1),C_mean)
         A_mean = np.sum(A_sim,axis=0)/N
-        plt.plot(range(start,start + T),A_mean)
+        plt.plot(range(start,start + T+1),A_mean,linestyle=':')
         I_mean = np.sum(income_sim,axis=0)/N
-        plt.plot(range(start,start + T),I_mean)
-        plt.plot(range(start,start + T),np.zeros(T),linestyle='--')
+        plt.plot(range(start,start + T+1),I_mean,linestyle='-.')
+        # plt.plot(range(start,start + T+1),np.zeros(T+1),linestyle='--')
+        plt.plot([start + t_w]*100,np.linspace(-2,A_mean.max() + 5,100),linestyle='--',color='black',linewidth=0.5)
+
         plt.legend(['Consumption','Assets','Income'])
         
         plt.grid()
@@ -188,7 +245,7 @@ def plot_policy_over_states(X,C,Z,age,t_w,start,N_z,N_a,line45=True,yaxis='Consu
     else:
         label = 'Working'
         t = age - start
-        index = range(0, N_z)
+        index = range(0, N_z,3)
         for i in index:
             plt.plot(X[i * (N_a+1):(i+1) * (N_a+1),t],C[i * (N_a+1):(i+1) * (N_a+1),t],label = 'z = ' + str(round(Z[i][0],2)))
         if line45:     plt.plot(X[:int(N_a/3)+1,t],X[:int(N_a/3)+1,t],label = '45 degree line',linestyle='--')
@@ -200,6 +257,13 @@ def plot_policy_over_states(X,C,Z,age,t_w,start,N_z,N_a,line45=True,yaxis='Consu
         plt.title('Policy function at {}'.format(label))
         plt.show()
         plt.close()
+
+
+
+def dsearchn(value, array):
+    kdt = KDTree(value)
+    return np.array([int(kdt.query(v)[1]) for v in array])
+
 
 # Tau Chen's code
 

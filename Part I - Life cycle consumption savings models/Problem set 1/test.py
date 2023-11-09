@@ -47,7 +47,7 @@ N_a = 15 ## number of grid points for assets
 Z, ω, π, A, Z0, ε_z, ε_ω,a_grid = tk.initialize(T,N_z, μ_z, ρ_z, σ_η,N_ω,μ_ω,ρ_ω,σ_ω,N_a,a_max,ϕ,N,μ_A,σ_A,σ_z)
 
 ## Shock in the interest rate
-N_r = 100 ## number of states for the interest rate process
+N_r = 5 ## number of states for the interest rate process
 μ = 0.04
 r_f = 0.02
 μ_r = np.log(r_f) + μ
@@ -85,7 +85,6 @@ for t in range(t_r-1,0, -1):
     t -= 1
     # I have to think more about the pension income
     pension = λ * g_t[t_w-1]
-    break
     Cp = np.zeros((N_a,N_r))
     Vp = np.zeros((N_a,N_r))
     for i in range(N_r):
@@ -93,7 +92,9 @@ for t in range(t_r-1,0, -1):
         index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
         Cp[:,i:i+1] = np.interp(Xp,Xr[:,t+1], Cr[:,t+1]) # interpolate consumption
         Vp[:,i:i+1] = np.interp(Xp,Xr[:,t+1], Vr[:,t+1]) # interpolate consumption
-
+        # break
+    if t ==3:
+        break
     dVp = Cp ** (-γ) 
     EV = β * np.dot(dVp,π_r.T)
     for i in range(N_r):
@@ -107,28 +108,46 @@ for t in range(t_r-1,0, -1):
 α = 0.5
 from scipy.optimize import fsolve
 from scipy.optimize import least_squares
-def alpha(α,x):
-    Xp =  x* (1 + r_f + α * (r - r_f)).T + pension
-    C_tempt = np.interp(Xp,Xr[:,t+1], Cr[:,t+1])
-    return( (C_tempt ** (-γ)  * (r - r_f).T ) @ π_r[i,:].T)[0]
-alpha(α,a_grid[10])
+def alpha(α,x,c,a):
+    A_t = x - c
+    Y_t1 = pension
+    X_t1 = Y_t1 + A_t * (1 + r_f + α * (r - r_f)).T 
+    c_t1 = X_t1 - a
+    c_t1 = np.interp(c_t1,Xr[:,t+1], Cr[:,t+1])
+    M_t1 = β * c_t1 ** (-γ)  
+    E =  (M_t1 * (r - r_f).T) @ π_r[i,:].T
+    return E[0]
 
-least_squares(alpha,0.5,args = (a_grid[5],),bounds=(0 - epsilon,1 + epsilon))
-x = a_grid[5]
+
+x = Xp[-5]
+c = Cp[-5,i:i+1]
+a = a_grid[-5]
+fsolve(alpha,-0.5,args = (x,c,a)),alpha(25.59539827,x,c,a)
+
+A_t = x - c
+Y_t1 = pension
+X_t1 = Y_t1 + A_t * (1 + r_f + α * (r - r_f)).T 
+c_t1 = X_t1 - a
+c_t1 = np.interp(c_t1,Xr[:,t+1], Cr[:,t+1])
+M_t1 = β * c_t1 ** (-γ)  
+E =  (M_t1 * (r - r_f).T) @ π_r[i,:].T
+E
+
 # α_upper = 1
 # α_lower = 0
 
 # for _ in range(100):
-#     if abs(alpha(α,x))<1e-4:
+#     res = alpha(α,x,c,a)
+#     if abs(res)<1e-7:
 #         print(α , "is the solution")
 #         break
-#     if alpha(α,x)>0:
+#     if res>0:
 #         α_upper = α
 #         α = (α_lower + α_upper)/2
 #     else:
 #         α_lower = α
 #         α = (α_lower + α_upper)/2
-#     print(α, alpha(α,x),α_upper,α_lower)
+#     print(α, res,α_upper,α_lower)
 
 #%%
 Xp =  x* (1 + r_f + α * (r - r_f)).T + pension

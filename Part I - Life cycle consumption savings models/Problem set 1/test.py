@@ -48,13 +48,14 @@ Z, ω, π, A, Z0, ε_z, ε_ω,a_grid = tk.initialize(T,N_z, μ_z, ρ_z, σ_η,N_
 
 ## Shock in the interest rate
 N_r = 5 ## number of states for the interest rate process
-μ = 0.04
+μ = 0.04 * 0 
 r_f = 0.02
-μ_r = np.log(r_f) + μ
+μ_r = np.log(1+r_f) + μ
 σ_r = 0.18
 r,π_r = tk.tauchenhussey(N_r, μ_r, 0, σ_r)
 r = np.exp(r)[0].reshape(N_r,1) ## transitory income process
-# print(r)
+print(r)
+r = r - 1
 
 
 σ_r = 0.18
@@ -110,8 +111,8 @@ from scipy.optimize import fsolve
 from scipy.optimize import least_squares
 def alpha(α,x,c,a):
     A_t = x - c
-    Y_t1 = pension
-    X_t1 = Y_t1 + A_t * (1 + r_f + α * (r - r_f)).T 
+    Y_t1 = pension 
+    X_t1 = Y_t1 +  A_t* (1 + r_f + α * (r - r_f)).T 
     c_t1 = X_t1 - a
     # c_t1 = np.interp(c_t1,Xr[:,t+1], Cr[:,t+1])
     M_t1 = β * c_t1 ** (-γ)  
@@ -122,18 +123,29 @@ def alpha(α,x,c,a):
 x = Xp[-1]
 c = Cp[-1,i:i+1]
 a = a_grid[-1]
-fsolve(alpha,0.5,args = (x,c,a)),least_squares(alpha,0.5,args = (x,c,a),bounds = (0,1)).x
+
+test_grid = np.linspace(0,1,25)
+re = []
+for te in test_grid:
+    re.append(alpha(te,x,c,a))
+plt.plot(test_grid,re)
+fsolve(alpha,0.5,args = (x,c,a)),least_squares(alpha,0.5,args = (x,c,a),bounds = (0,1))
+
+#%%
 
 A_t = x - c
+
 Y_t1 = pension
 X_t1 = Y_t1 + A_t * (1 + r_f + α * (r - r_f)).T 
 X_t1
 c_t1 = X_t1 - a
+c_t1
 c_t1 = np.interp(c_t1,Xr[:,t+1], Cr[:,t+1])
 M_t1 = β * c_t1 ** (-γ)  
 M_t1
 E =  (M_t1 * (r - r_f).T) @ π_r[i,:].T
-E
+# E
+
 
 # α_upper = 1
 # α_lower = 0
@@ -150,6 +162,8 @@ E
 #         α_lower = α
 #         α = (α_lower + α_upper)/2
 #     print(α, res,α_upper,α_lower)
+
+# %%
 
 #%%
 Xp =  x* (1 + r_f + α * (r - r_f)).T + pension

@@ -1,7 +1,7 @@
 import scipy.stats as st
 import scipy as sp
 import numpy as np
-import numba
+# import numba
 from scipy.spatial import KDTree
 import matplotlib.pyplot as plt
 

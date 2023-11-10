@@ -113,23 +113,25 @@ def alpha(α,x,c,a):
     Y_t1 = pension
     X_t1 = Y_t1 + A_t * (1 + r_f + α * (r - r_f)).T 
     c_t1 = X_t1 - a
-    c_t1 = np.interp(c_t1,Xr[:,t+1], Cr[:,t+1])
+    # c_t1 = np.interp(c_t1,Xr[:,t+1], Cr[:,t+1])
     M_t1 = β * c_t1 ** (-γ)  
     E =  (M_t1 * (r - r_f).T) @ π_r[i,:].T
     return E[0]
 
 
-x = Xp[-5]
-c = Cp[-5,i:i+1]
-a = a_grid[-5]
-fsolve(alpha,-0.5,args = (x,c,a)),alpha(25.59539827,x,c,a)
+x = Xp[-1]
+c = Cp[-1,i:i+1]
+a = a_grid[-1]
+fsolve(alpha,0.5,args = (x,c,a)),least_squares(alpha,0.5,args = (x,c,a),bounds = (0,1)).x
 
 A_t = x - c
 Y_t1 = pension
 X_t1 = Y_t1 + A_t * (1 + r_f + α * (r - r_f)).T 
+X_t1
 c_t1 = X_t1 - a
 c_t1 = np.interp(c_t1,Xr[:,t+1], Cr[:,t+1])
 M_t1 = β * c_t1 ** (-γ)  
+M_t1
 E =  (M_t1 * (r - r_f).T) @ π_r[i,:].T
 E
 

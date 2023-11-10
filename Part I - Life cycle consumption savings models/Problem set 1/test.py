@@ -47,8 +47,8 @@ N_a = 15 ## number of grid points for assets
 Z, ω, π, A, Z0, ε_z, ε_ω,a_grid = tk.initialize(T,N_z, μ_z, ρ_z, σ_η,N_ω,μ_ω,ρ_ω,σ_ω,N_a,a_max,ϕ,N,μ_A,σ_A,σ_z)
 
 ## Shock in the interest rate
-N_r = 5 ## number of states for the interest rate process
-μ = 0.04 * 0 
+N_r = 2 ## number of states for the interest rate process
+μ = 0.04 
 r_f = 0.02
 μ_r = np.log(1+r_f) + μ
 σ_r = 0.18
@@ -65,74 +65,145 @@ N_α = 5
 α_grid = np.linspace(0,1,N_α)
 
 # %%
-
-Vr = np.zeros((N_r * (N_a+1), t_r))
-Cr = np.zeros((N_r * (N_a+1), t_r))
-Xr = np.zeros((N_r * (N_a+1), t_r))
-Ar = np.zeros((N_r * (N_a+1), t_r))
-αr = np.zeros((N_r * (N_a+1), t_r))
-
-# Set the last period
-for i in range(N_r):
-    Vr[i*(N_a+1),:] = vmin
-    index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
-    Xr[index,-1:] = a_grid 
-    Cr[index,-1:] = Xr[index,-1:]
-    Ar[index,-1:] = Xr[index,-1:] - Cr[index,-1:]
-    Vr[index,-1:] = Cr[index,-1:]**(1-γ)/(1-γ)
-    
-# backward iteration
-for t in range(t_r-1,0, -1):
-    t -= 1
-    # I have to think more about the pension income
-    pension = λ * g_t[t_w-1]
-    Cp = np.zeros((N_a,N_r))
-    Vp = np.zeros((N_a,N_r))
-    for i in range(N_r):
-        Xp = a_grid * (1 + r[i]) + pension ## cash-on-hand tomorrow
-        index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
-        Cp[:,i:i+1] = np.interp(Xp,Xr[:,t+1], Cr[:,t+1]) # interpolate consumption
-        Vp[:,i:i+1] = np.interp(Xp,Xr[:,t+1], Vr[:,t+1]) # interpolate consumption
-        # break
-    if t ==3:
-        break
-    dVp = Cp ** (-γ) 
-    EV = β * np.dot(dVp,π_r.T)
-    for i in range(N_r):
-        index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
-        dV = β * np.dot(dVp,π_r[i,:].T) * (1 + r[i])
-        Cr[index,t:t+1] = dV.reshape(15,1) ** (-1/γ)
-        Xr[index,t:t+1] = Cr[index,t:t+1] + a_grid
-    
-
-#%%
-α = 0.5
 from scipy.optimize import fsolve
-from scipy.optimize import least_squares
-def alpha(α,x,c,a):
+def alpha(α,x,c,a,r_index,π_r,pension):
     A_t = x - c
     Y_t1 = pension 
     X_t1 = Y_t1 +  A_t* (1 + r_f + α * (r - r_f)).T 
     c_t1 = X_t1 - a
-    # c_t1 = np.interp(c_t1,Xr[:,t+1], Cr[:,t+1])
     M_t1 = β * c_t1 ** (-γ)  
-    E =  (M_t1 * (r - r_f).T) @ π_r[i,:].T
+    E =  (M_t1 * (r - r_f).T) @ π_r[r_index,:].T
     return E[0]
 
 
-x = Xp[-1]
-c = Cp[-1,i:i+1]
-a = a_grid[-1]
+def solve_alpha(x,c,a,r_index,π_r,pension):
+    alpha_0 , alpha_1 = alpha(0,x,c,a,r_index,π_r,pension),alpha(1,x,c,a,r_index,π_r,pension)
+    if alpha_0 * alpha_1 > 0:
+        if alpha_0 > 0: return 1
+        else: return 0
+    else:
+        return fsolve(alpha,0.5,args = (x,c,a,r_index,π_r,pension))[0]
 
-test_grid = np.linspace(0,1,25)
-re = []
-for te in test_grid:
-    re.append(alpha(te,x,c,a))
-plt.plot(test_grid,re)
-fsolve(alpha,0.5,args = (x,c,a)),least_squares(alpha,0.5,args = (x,c,a),bounds = (0,1))
+
+
+def retirement_with_asset(r,π_r,γ,β,λ,g_t,t_w,t_r,N_a,a_grid,vmin):
+    Vr = np.zeros((N_r * (N_a+1), t_r))
+    Cr = np.zeros((N_r * (N_a+1), t_r))
+    Xr = np.zeros((N_r * (N_a+1), t_r))
+    αr = np.zeros((N_r * (N_a+1), t_r))
+
+    # Set the last period
+    for i in range(N_r):
+        Vr[i*(N_a+1),:] = vmin
+        index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
+        Xr[index,-1:] = a_grid 
+        Cr[index,-1:] = Xr[index,-1:]
+        Vr[index,-1:] = Cr[index,-1:]**(1-γ)/(1-γ)
+        
+    # backward iteration
+    for t in range(t_r-1,0, -1):
+        t -= 1
+        # I have to think more about the pension income
+        pension = λ * g_t[t_w-1]
+        Cp = np.zeros((N_a,N_r))
+        Vp = np.zeros((N_a,N_r))
+        for i in range(N_r):
+            Xp = a_grid * (1 + r[i]) + pension ## cash-on-hand tomorrow
+            index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
+            Cp[:,i:i+1] = np.interp(Xp,Xr[index,t+1], Cr[index,t+1]) # interpolate consumption
+            Vp[:,i:i+1] = np.interp(Xp,Xr[index,t+1], Vr[index,t+1]) # interpolate consumption
+            for n_a in range(0,N_a):
+                index = i*(n_a+1)+1
+                αr[index,t:t+1] = solve_alpha(Xp[n_a],Cp[n_a,i:i+1],a_grid[n_a],r_index = i,π_r = π_r,pension = pension)
+        dVp = Cp ** (-γ) 
+        EV = β * np.dot(dVp,π_r.T)
+        for i in range(N_r):
+            index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
+            dV = β * np.dot(dVp,π_r[i,:].T) * (1 + r[i])
+            Cr[index,t:t+1] = dV.reshape(15,1) ** (-1/γ)
+            Xr[index,t:t+1] = Cr[index,t:t+1] + a_grid
+    return Cr,Xr,Vr,αr
+Cr,Xr,Vr,αr = retirement_with_asset(r,π_r,γ,β,λ,g_t,t_w,t_r,N_a,a_grid,vmin)
+    
+αr[:,4]
+#%%
+
+Vw = np.zeros(((N_r + N_z) * (N_a+1), t_w))
+Cw = np.zeros(((N_r + N_z) * (N_a+1), t_w))
+Xw = np.zeros(((N_r + N_z) * (N_a+1), t_w))
+αw = np.zeros(((N_r + N_z) * (N_a+1), t_w))
+for i in range(N_z):
+    for j in range(N_r):
+        Vw[(i+j) * (N_a+1),:] = vmin
+
+pension = λ * g_t[t_w-1]
+for t in range(t_w, 0, -1):
+    if t == t_w: # Last period working
+        Cp = np.zeros((N_a,N_r))
+        Vp = np.zeros((N_a,N_r))
+        for i in range(N_r):
+            Xp = a_grid * (1 + r[i]) + pension ## cash-on-hand tomorrow
+            index = range(i*(N_a+1)+1,(i+1)*(N_a+1))
+            Cp[:,i:i+1] = np.interp(Xp,Xr[index,0], Cr[index,0]) # interpolate consumption
+            Vp[:,i:i+1] = np.interp(Xp,Xr[index,0], Vr[index,0]) # interpolate consumption
+            for n_a in range(0,N_a):
+                index = (i+j)*(n_a+1)+1
+                αw[index,t-1:t] = solve_alpha(Xp[n_a],Cp[n_a,i:i+1],a_grid[n_a],r_index = i,π_r = π_r,pension = pension)
+    else:
+        Cp = np.zeros((N_a, N_z * N_ω * N_r))
+        Vp = np.zeros((N_a, N_z * N_ω * N_r))
+        for k in range(N_r):
+            for i in range(N_z):
+                for j in range(N_ω): # loop over transitory income states
+                    Xp = a_grid * (1 + r[k]) + Z[i] * ω[j] * g_t[t] # Implied cash on hand tomorrow
+                    index = range((k+i) * N_a + (k+i), (k+i+1) * (N_a + 1) )
+                    index_2 = range((k+i) * N_ω + j,(k+i) * N_ω + j + 1)
+                    
+    ...
+    break
+
+αw[:,-1]
+
+#%%
+for t in range(t_w, 0, -1):
+    if t == t_w: # Last period working
+        Xp = a_grid * (1 + rr) + pension
+        Cp = np.interp(Xp,Xr[:,0], Cr[:,0])
+        ## % Construct tomorrows value and tomorrows derivative wrt assets (no expectation)
+        EV = β * np.interp(Xp,Xr[:,0], Vr[:,0])
+        dV = β * Cp ** (-γ) * (1 + rr)
+        for i in range(N_z):
+            index = range(i * (N_a+1) + 1, (i + 1) * (N_a+1))
+            Cw[index  ,t-1:t] = dV ** (-1/γ) # Use FOC to find consumption policy
+            Xw[index ,t-1:t] =  Cw[index ,t-1:t] + a_grid
+            Vw[index ,t-1:t] = (Cp ** (1-γ) - 1 )/(1-γ) + EV
+    else:
+        Cp = np.zeros((N_a, N_z * N_ω))
+        Vp = np.zeros((N_a, N_z * N_ω))
+        for i in range(N_z):
+            for j in range(N_ω): # loop over transitory income states
+                Xp = a_grid * (1 + rw) + Z[i] * ω[j] * g_t[t] # Implied cash on hand tomorrow 
+                index = range(i * N_a + i, (i + 1) * (N_a + 1) )
+                index_2 = range(i * N_ω + j,i * N_ω + j + 1)
+                Cp[:,index_2] = np.interp(Xp,Xw[index,t], Cw[index,t])
+                Vp[:,index_2] = np.interp(Xp,Xw[index,t], Vw[index,t])
+        dVp = Cp ** (-γ)
+        # Construct tomorrows value and tomorrows derivative wrt assets
+        EV = β * np.dot(Vp , π.T)
+        dV = β * np.dot(dVp , π.T) * (1 + rw) # RHS of Euler equation
+        for i in range(N_z):
+            index = range(i * (N_a+1) + 1, (i + 1) * (N_a+1))
+            Cw[index  ,t-1:t] = dV[:,i:i+1] ** (-1/γ) # Use FOC to find consumption
+            Xw[index ,t-1:t] =  Cw[index ,t-1:t] + a_grid # Implied cash on hand
+            Vw[index ,t-1:t] = (Cw[index ,t-1:t] ** (1-γ) - 1 )/(1-γ) + EV[:,i:i+1] 
+
+
 
 #%%
 
+
+
+#%%
 A_t = x - c
 
 Y_t1 = pension

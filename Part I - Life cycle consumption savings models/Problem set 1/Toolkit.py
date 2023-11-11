@@ -55,7 +55,7 @@ def initialize(T,N_z, μ_z, ρ_z, σ_η,N_ω,μ_ω,ρ_ω,σ_ω,N_a,a_max,ϕ,N,μ
     a_grid = discretize_assets_single_exp(ϕ + epsilon, a_max, N_a).reshape(N_a,1) ## double exponential grid for assets
     # a_grid = np.linspace(ϕ, a_max, N_a).reshape(N_a,1) ## linear grid for assets
     
-    return Z, ω, π, A, Z0, ε_z, ε_ω,a_grid
+    return Z, ω, π_ω, π_z, π, A, Z0, ε_z, ε_ω,a_grid
 
 
 

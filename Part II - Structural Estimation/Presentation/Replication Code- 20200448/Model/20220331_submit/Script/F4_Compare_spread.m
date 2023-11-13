@@ -38,8 +38,8 @@ loan_rate = loan_spread + FFR5;
 deposit_rate = FFR - deposit_spread;
 save("Results\F4_Compare_spreads",'FFR','deposit_rate','loan_rate','Par','simu_con0')
 
-%% Plot results
-
+%% Plot original results
+close()
 load("Results\F4_Compare_spreads")
 figure(4)
 subplot(1,2,1)
@@ -52,6 +52,7 @@ ylim([0,0.08])
 xlabel("Federal funds rate"+newline+ "   "+newline+ "   ")
 ylabel('Deposit rate')
 
+
 subplot(1,2,2)
 r4 = ksrlin(FFR,loan_rate);
 scatter(FFR,loan_rate,'MarkerEdgeColor',[0.5 0.5 0.5]); hold on
@@ -61,5 +62,36 @@ xlim([0,0.08])
 ylim([0,0.08])
 xlabel("Federal funds rate"+newline+ "   "+newline+ "   ")
 ylabel('Loan rate')
-legend('Raw data','Local polynomial smooth plots using raw data','Model predictions','location','southoutside','Orientation','horizontal'); legend boxoff
+% legend('Raw data','Local polynomial smooth plots using raw data','Model predictions','location','southoutside','Orientation','horizontal'); legend boxoff
+saveas(gcf,'replication_figure3.pdf')
 
+
+
+%% Plot results
+close()
+load("Results\F4_Compare_spreads")
+figure(4)
+subplot(1,2,1)
+deposit_rate_2 = FFR - deposit_rate;
+r3 = ksrlin(FFR,deposit_rate_2);
+scatter(FFR,deposit_rate_2,'MarkerEdgeColor',[0.5 0.5 0.5]); hold on
+plot(r3.x, r3.f), hold on
+plot(Par.fGrid, smooth(Par.fGrid - simu_con0.rd1),'b--'); hold on
+xlim([0,0.08])
+ylim([0,0.04])
+xlabel("Federal funds rate"+newline+ "   "+newline+ "   ")
+ylabel('Deposit spreads')
+
+subplot(1,2,2)
+loan_rate_2 = loan_rate - FFR;
+r4 = ksrlin(FFR,loan_rate_2);
+scatter(FFR,loan_rate_2,'MarkerEdgeColor',[0.5 0.5 0.5]); hold on
+plot(r4.x,r4.f), hold on
+plot(Par.fGrid, smooth(simu_con0.r1 - Par.fGrid,'loess'),'b--')
+yline(0,'--')
+xlim([0,0.09])
+ylim([-0.03,0.05])
+xlabel("Federal funds rate"+newline+ "   "+newline+ "   ")
+ylabel('Loan spreads')
+% legend('Raw data','Local polynomial smooth plots using raw data','Model predictions','location','bestoutside','Orientation','horizontal'); legend boxoff
+saveas(gcf,'replication_figure1.pdf')

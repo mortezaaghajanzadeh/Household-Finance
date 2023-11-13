@@ -39,19 +39,24 @@ load('Data\shocks_6_500000_1_0_0');
 [firmN, simu_conN, simu_unN] = SimulatePanel_short(Par, solutionN, shock0);
 
 save("Results\T4_Determinants",'Par','simu_un0','simu_un1A','simu_un2A','simu_un3A','simu_un4A','simu_unN')
+% -  Remove all
+
 
 %% Print results
-
+Par.a1 = 0;  Par.theta = 0.000; Par.ksi = 0;
+Par = Grid_exp(Par); solution5A =solve_model_MP(Par,'YES DMP','YES LMP');
+[firm5A, simu_con5A, simu_un5A] = SimulatePanel_short(Par, solution5A, shock0);
 load("Results\T4_Determinants")
 
 inc1 = (-simu_un1A.reg_B_agg + simu_un0.reg_B_agg)/simu_un0.reg_B_agg;
 inc2 = (-simu_un2A.reg_B_agg + simu_un0.reg_B_agg)/simu_un0.reg_B_agg;
 inc3 = (-simu_un3A.reg_B_agg + simu_un0.reg_B_agg)/simu_un0.reg_B_agg;
 inc4 = (-simu_un4A.reg_B_agg + simu_un0.reg_B_agg)/simu_un0.reg_B_agg;
+inc5 = (-simu_un5A.reg_B_agg + simu_un0.reg_B_agg)/simu_un0.reg_B_agg;
 incN = (-simu_unN.reg_B_agg  + simu_un0.reg_B_agg)/simu_un0.reg_B_agg;
 
-temp = [simu_un0.reg_B_agg, simu_un1A.reg_B_agg, simu_un2A.reg_B_agg, simu_un4A.reg_B_agg, simu_unN.reg_B_agg;
-    0, inc1, inc2, inc4, incN];
+temp = [simu_un0.reg_B_agg, simu_un1A.reg_B_agg, simu_un2A.reg_B_agg, simu_un4A.reg_B_agg, simu_un5A.reg_B_agg, simu_unN.reg_B_agg;
+    0, inc1, inc2, inc4, inc5, incN];
 
 disp('Sensitivity  Change%')
 disp(temp')

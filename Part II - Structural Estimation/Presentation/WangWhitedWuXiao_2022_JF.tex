@@ -1,0 +1,103 @@
+\documentclass{beamer}
+
+% Theme
+\usetheme{Madrid}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=false,
+	linkcolor=blue,
+	filecolor=blue,      
+	urlcolor=blue,
+}
+
+\usepackage{natbib}
+
+\def\boxit#1{%
+	\smash{\color{red}\fboxrule=1pt\relax\fboxsep=2pt\relax%
+		\llap{\rlap{\fbox{\vphantom{0}\makebox[#1]{}}}~}}\ignorespaces
+}
+\renewcommand{\today}{\ifcase \month \or January\or February\or March\or %
+	April\or May \or June\or July\or August\or September\or October\or November\or %
+	December\fi, \number \year} 
+
+
+
+
+% \AtBeginSection[]
+% {
+% 	\begin{frame}{Table of Contents}
+% 		% \scriptsize
+% 			\tableofcontents[hideallsubsections,hideothersubsections,currentsection]
+% 	\end{frame}
+% }	
+
+% Title page
+\title[Monetary Policy
+Transmission]{Discussion of\\ \textbf{Bank Market Power and Monetary Policy Transmission: Evidence from Structural Estimation}}
+\subtitle{by Wang, Whited, Wu, and Xiao (2022, JF)}
+\author[Morteza, Najmeh]{Morteza Aghajanzadeh, Najmeh Hajimirza}
+\institute[HH Finance]{Households Finance}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Overview}
+    How does monetary policy affect bank lending?\\
+    \begin{enumerate}
+        \item Reserves channel
+        \item Bank capital channel
+        \item Deposit channel
+    \end{enumerate}
+    \vspace{0.5cm}
+    \textbf{This paper:} 
+    \begin{enumerate}
+        \item Build and estimate a model with all three channels
+        \item \textbf{Finding:} Deposit channel is the most important channel, followed by the capital channel, and then the reserves channel
+    \end{enumerate}
+\end{frame}
+\begin{frame}{The Deposits channel}
+    
+    
+
+\end{frame}
+
+\section{Methodology}
+
+\begin{frame}{Methodology}
+    Of course Structural Estimation\\
+    \vspace{0.5cm}
+    \begin{enumerate}
+        \item Calibration
+        \item Parameter estimation from the data
+        \item Parameter estimation for Deposit and loan demand
+        \item Parameter estimation using SMD
+    \end{enumerate}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}{Conclusion}
+    This is the conclusion.
+\end{frame}
+
+
+
+\scriptsize 
+	\begin{frame}[allowframebreaks]{References}
+			\bibliographystyle{aea}
+\bibliography{ref.bib}
+		
+	\end{frame}
+	
+	\normalsize
+\end{document}

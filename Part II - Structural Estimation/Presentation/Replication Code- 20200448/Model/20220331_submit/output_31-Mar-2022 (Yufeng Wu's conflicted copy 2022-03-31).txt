@@ -1,0 +1,9 @@
+{Previously accessible file "C:\Users\yufengwu\Dropbox\100. Shared
+Folders\0.Archieve\2021_wKairong,Toni_JF\Monetary Transmission in
+the Banking
+System\Code\replication_packet\Model\20210720\BLP\calc_eqD_BLP.m" is
+now inaccessible.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('main', 'C:\Users\yufengwu\Dropbox\100. Shared Folders\0.Archieve\2021_wKairong,Toni_JF\Monetary Transmission in the Banking System\Code\replication_packet\Model\20210720\main.m', 74)" style="font-weight:bold">main</a> (<a href="matlab: opentoline('C:\Users\yufengwu\Dropbox\100. Shared Folders\0.Archieve\2021_wKairong,Toni_JF\Monetary Transmission in the Banking System\Code\replication_packet\Model\20210720\main.m',74,0)">line 74</a>)
+Par = Grid_exp(Par);
+} 

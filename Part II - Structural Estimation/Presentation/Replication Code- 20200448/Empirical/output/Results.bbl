@@ -1,0 +1,17 @@
+\begin{thebibliography}{3}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[Dick(2008)]{Dick2008}
+Dick, Astrid~A., 2008, Demand estimation and consumer welfare in the banking
+  industry, {\em Journal of Banking and Finance\/} 32, 1661--1676.
+
+\bibitem[Hanson and Stein(2015)]{HansonStein2015}
+Hanson, Samuel~G., and Jeremy~C. Stein, 2015, Monetary policy and long-term
+  real rates, {\em Journal of Financial Economics\/} 115, 429--448.
+
+\bibitem[Jarocinski and Karadi(2018)]{JarocinskiKaradi2018}
+Jarocinski, Marek, and Peter Karadi, 2018, Deconstructing monetary policy
+  surprises: {T}he role of information shocks, {\em American Economic Journal:
+  Macroeconomics\/} \hspace*{-5pt}, forthcoming.
+
+\end{thebibliography}

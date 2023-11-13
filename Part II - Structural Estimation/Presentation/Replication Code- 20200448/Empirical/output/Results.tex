@@ -1,0 +1,320 @@
+\documentclass[12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{dcolumn}
+\usepackage{graphicx}
+\usepackage{makeidx}
+\usepackage{amsfonts}
+\usepackage[bottom]{footmisc}
+\usepackage{booktabs}
+%\usepackage{enumitem}
+\usepackage{eurosym}
+\usepackage[latin1]{inputenc}
+\usepackage{lscape}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage[longnamesfirst]{natbib}
+\usepackage[flushleft]{threeparttable}
+\bibpunct{\color{black}{(}}{\color{black}{)}}{;}{a}{}{,}
+%  \bibpunct{(}{)}{;}{a}{}{,}
+%  \bibpunct{[}{]}{;}{a}{}{,}
+%\usepackage[metapost]{mfpic}
+%  \opengraphsfile{pics}
+\usepackage{ifthen}
+\usepackage[colorlinks]{hyperref}
+\hypersetup{  colorlinks = {true},
+	%allcolors={black},
+	urlcolor={black},
+	citecolor={blue},
+	linkcolor={black},
+	anchorcolor={black}
+	filecolor={black}
+}
+\usepackage{xcolor}
+\usepackage{soul,color}
+\soulregister\cite7
+\soulregister\citealt7
+\soulregister\citeauthor7
+\soulregister\citeyear7
+\soulregister\ref7
+\soulregister\eqref7
+\soulregister\pageref7
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+% OVER-FULL BOX CONTROLS -------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Over-full v-boxes on even pages are due to the \v{c} in author's name
+\vfuzz2pt % Don't report over-full v-boxes if over-edge is small
+\hfuzz2pt % Don't report over-full h-boxes if over-edge is small
+
+
+
+
+% PAGE DEFINITION --------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[textheight=9in,textwidth=6.5in]{geometry}
+\parindent=0.23in
+\parskip=1pt
+
+
+\usepackage{epstopdf}
+\usepackage{setspace}
+\usepackage{titlesec}
+\titleformat{\section}
+{\normalfont\Large\bfseries}
+{Appendix \thesection.}{0.5em}{}
+\titleformat{\subsection}
+{\normalfont\large\bfseries}
+{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}
+{\thesubsubsection.}{0.5em}{}
+\bibpunct{\color{black}{(}}{\color{black}{)}}{;}{a}{}{,}
+\usepackage{pdflscape}
+\usepackage{comment}
+\usepackage{relsize}
+\newcommand{\blob}{\rule[.2ex]{1ex}{1ex}}
+\setlength{\unitlength}{0.25cm}
+\usepackage{lineno}
+\usepackage{chngcntr}
+\expandafter\def\expandafter\normalsize\expandafter{%
+	\normalsize
+	% \setlength\abovedisplayskip{10pt}
+	\setlength\belowdisplayskip{16pt}
+	% \setlength\abovedisplayshortskip{10pt}
+	\setlength\belowdisplayshortskip{16pt}
+}
+
+\baselineskip=12pt
+
+
+\renewcommand{\figurename}{\bf Figure RP}
+\renewcommand{\tablename}{\bf Table RP}
+\begin{document}
+	
+
+\clearpage
+\newpage
+\begin{figure}[h]
+	\begin{centering}
+		
+		
+		\textbf{Panel A: Deposit Spread} \\
+		\includegraphics[scale=.8]{../output/Figures/lpoly_deposit_spread}
+		
+		\textbf{Panel B: Loan Spread} \\
+		\includegraphics[scale=.8]{../output/Figures/lpoly_loan_spread}
+		
+		\par
+		\caption{Deposit Spread, Loan Spread, and the Federal Funds Rate\label{fig:lpoly_deposit_spread}}
+	\end{centering}
+	{\footnotesize{In this figure, we plot kernel regressions of average deposit and loan spreads for U.S. banks on the federal funds rate.  We use an Epanechnikov kernel with a bandwidth of 0.66 for deposits and 0.61 for loans. The sample period is 1985--2017. The data frequency is quarterly.  The deposit and loan rates are constructed using the Call Reports, and the federal funds rate is  from the FRED database.}}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+\newpage
+\begin{figure}[h]
+	\begin{centering}
+		High Federal Funds Rate
+		\par\end{centering}
+	\begin{centering}
+		\includegraphics[scale=0.8]{../output/Figures/bank_treasury2y_above}
+		\par\end{centering}
+	\vspace{5mm}
+	\begin{centering}
+		Low Federal Funds Rate
+		\par
+		\includegraphics[scale=0.8]{../output/Figures/bank_treasury2y_below}
+		\caption{Monetary Policy Shocks and Bank Equity Returns\label{fig:stock_return}}
+	\end{centering}
+	{\footnotesize{This figure provides scatter plots of bank industry excess returns against monetary policy shocks on FOMC days from 1994 to 2017. The excess  returns are defined as the difference between bank industry index returns and market returns. Monetary policy shocks are measured by one-day changes in two-year Treasury yields on FOMC days.
+			The sample for the upper panel constitutes observations in which the starting level of the federal funds rate is above 2\%. The sample the lower panel constitutes observations in which the starting level of the federal funds rate is below 2\%.  We exclude observations during the collapse of the dot-com bubble (2000-2001) and the financial crisis (2007-2009).   Bank industry stock returns are  from Kenneth French's website, and the two-year Treasury yield is  from the FRED database.}}
+\end{figure}
+
+
+
+\newpage
+\begin{figure}[h]
+	\begin{centering}
+		High Federal Funds Rate
+		\par\end{centering}
+	\begin{centering}
+		\includegraphics[scale=0.8]{../output/Figures/bank_karadi_above}
+		\par\end{centering}
+	\vspace{5mm}
+	\begin{centering}
+		Low Federal Funds Rate
+		\par
+		\includegraphics[scale=0.8]{../output/Figures/bank_karadi_below}
+		\caption{Monetary Policy Shocks and Bank Equity Returns\label{fig:stock_return}}
+	\end{centering}
+	{\footnotesize{This figure provides the scatter plot of bank industry excess returns against monetary policy shocks on FOMC days from 1994 to 2017. The excess  returns are defined as the difference between bank industry index returns and the market returns. Monetary policy shocks are measured by the change in the 3-month federal funds future subtracting  central bank information shocks \citep{JarocinskiKaradi2018}. The sample for the upper panel constitutes observations in which the starting level of the federal funds rate is above 2\%. The sample for the lower panel constitutes observations in which the starting level of the federal funds rate is below 2\%. We exclude observations during the collapse of the dot-com bubble (2000-2001) and the financial crisis (2007-2009). Bank industry stock returns are  from Kenneth French's website and the monetary policy shocks are  from the website of the \textit{American Economic Journal: Macroeconomics}.}}
+\end{figure}
+
+
+
+\newpage
+\begin{figure}[h]
+	\begin{centering}
+		\includegraphics[scale=0.5]{../output/Figures/industry_fomc_bar_gt2}
+		\includegraphics[scale=0.5]{../output/Figures/industry_fomc_bar_lt2}\caption{Monetary Policy Shocks and Bank Equity Returns\label{Fig: ind_stock_return}}
+	\end{centering}
+	{\footnotesize{The figure shows the sensitivity of bank and other industry stock portfolios to monetary policy shocks on the FOMC days. The bars present the coefficients from regressions of Fama-French 49 industry returns on the change in the two-year Treasury rate over a two-day window around FOMC meetings,  as in \cite{HansonStein2015}. The sample includes all scheduled FOMC meetings from 1994 to 2017. The left panel uses a sample in which the federal funds rate (FFR) is above 2\%. The right panel uses a sample in which the federal funds rate  is below or equal to 2\%. The industry returns are from Kenneth French's website. The two-year Treasury rate is obtained from the FRED database.}}
+\end{figure}
+
+\clearpage\newpage
+\begin{table}[h]
+		\caption{Summary Statistics 	\label{tab:sum_stats}}
+		\vspace{5mm}
+		
+		%\footnotesize{\noindent In this table, we report summary statistics for our sample. The sample period is 1994--2017. The total size of the deposit market is defined as the sum of deposits, cash, and Treasury bills held by all U.S.\  households and non-financial corporations. The total size of the loan market is defined as the sum of U.S.\ corporate and household debt. Deposit and loan rates are calculated using interest expense and income. Expense related to fixed assets and salaries are scaled by total assets. Deposit shares, loan shares, deposit rates, loan rates, expenses related to fixed assets, salaries, and net noninterest expenses are reported in percentages. Asset maturity is reported in years. ``(vw)'' indicates an asset-weighted mean, and ``(ew)'' indicates an equal-weighted mean .  The data sources are the  Call Reports and the FDIC Summary of Deposits. \\}
+		
+		\input{../output/Tables/sum_stats}
+\end{table}
+
+
+
+\begin{table}[h]
+	\caption{Demand Estimation\label{tab:Demand}}
+	\vspace{5mm}
+	
+	\footnotesize{In this table, we report the estimated deposit and loan demand parameters. The first column corresponds to the deposit demand parameter estimates. The second column contains the loan demand parameter estimates. Yield sensitivity ($\alpha$) refers to the average sensitivity of depositors (borrowers) to deposit rates (loan rates). Log No. of Branches ($\beta_1$) refers to the sensitivity of depositors (borrowers) to the log number of branches that each bank operates. Log No. of Employees ($\beta_1$) refers to the sensitivity of depositors (borrowers) to the log number of employees per branch. Yield sensitivity ($\sigma_\alpha$) refers to the dispersion in the sensitivity of depositors to deposit rates, with the dispersion  set at 0 for firms. The sample includes all U.S. commercial banks from 1994 to 2017. The data sources are the Call Reports and the FDIC Summary of Deposits.\\}
+	
+	\input{../output/Tables/demand_blp}
+\end{table}
+
+
+\clearpage\newpage
+	\begin{table}[h]
+		\caption{Demand Estimation: Local Deposit Market\label{tab:Demand_Local}}
+		\vspace{5mm}
+		\input{../output/Tables/demand_local}
+		\vspace{5mm}
+		
+		\small{This table reports the estimated deposit demand parameters using county-level market shares. Yield sensitivity refers to the average sensitivity of the depositors to deposit rates. Log number of branches refers to the sensitivity of the depositors to the log number of each bank's branches. Log number of employees refers the sensitivity of the depositors to the log number of employees per branch. The sample includes all U.S.\ commercial banks from 1994 to 2017. The data is from the Call Reports and the Summary of Deposits.}
+	\end{table}
+
+ \begin{table}[h]
+ 	\caption{Yield Sensitivity in the Deposit Market: Robustness \label{tab:demand_estimation_wage_deposit_1997_2017}}
+ 	\vspace{5mm}
+ 	\input{../output/Tables/demand_estimation_wage_deposit_1997_2017}
+ 	\vspace{5mm}
+ 	
+ 	\small{This table reports the estimated deposit demand parameters using alternative instruments. Column (1) uses local bank-teller wage data from the Bureau of Labor Statistics as an instrument, following \cite{Dick2008}. The instrument is   the weighted average of the local bank teller wages over the markets in which the bank operates, where the weight is the bank's deposit share in each market relative to its total deposits. Column (2) uses bank salary expenses and bank fixed assets expenses as instruments. Column (3) uses all  three instruments at the same time.  The sample period is from 1997 to 2017. The data are from the Call Reports, the Summary of Deposits, and the Bureau of Labor Statistics.}
+ \end{table}
+ 
+ 
+ 
+ 
+ \newpage
+ \begin{table}[h]
+ 	\caption{Yield Sensitivity in the Loan Market: Robustness \label{tab:demand_estimation_wage_loan_1997_2017}}
+ 	\vspace{5mm}
+ 	\input{../output/Tables/demand_estimation_wage_loan_1997_2017}
+ 	\vspace{5mm}
+ 	
+ 	\small{This table reports the estimated loan demand parameters using alternative instruments. Column (1) uses local wage data from the Bureau of Labor Statistics as an instrument, following \cite{Dick2008}. The instrument is   the weighted average of the local bank teller wages over the markets in which the bank operates, where the weight is the bank's deposit share in each market relative to its total deposits. Column (2) uses bank salary expenses and bank fixed assets expenses as instruments. Column (3) uses all  three instruments at the same time.  The sample period is from 1997 to 2017. The data are from the Call Reports, the Summary of Deposits, and the Bureau of Labor Statistics.}
+ \end{table}
+ 
+
+
+ 
+
+\clearpage
+\newpage
+\begin{table} 
+	\caption{Monetary Policy Shocks and Bank Equity Returns on FOMC Days  \label{tab:stock_return_on_FOMC_days_r1}}
+	\vspace{5mm}
+	\footnotesize{\noindent In this table, we report the estimates of the relation  between bank equity returns and monetary policy shocks  on FOMC Days. Monetary policy shocks are measured by one-day changes in the two-year Treasury yield on FOMC days. HHI is the Herfindahl-Hirschman Index for the local deposit market in which a bank operates. Low is a dummy variable that equals one when the the starting level of the federal funds rate (FFR) is below 2\%. The control variables include market returns and term spreads. The sample includes all publicly traded U.S.\ banks from 1994 to 2017. The sample for columns (1) and (4) constitutes observations in which the starting level of the federal funds rate (FFR) is above 2\%. The sample for columns (2) and (5) constitutes observations in which the starting level of the federal funds rate is below 2\%.  The sample for columns (3) and (6) constitutes all observations.  We exclude observations during the collapse of the dot-com bubble (2000--2001) and the subprime financial crisis (2007-2009). Standard errors are clustered by time. \\}
+	
+	\input{../output/Tables/bank_fomc_r1}
+\end{table}
+
+
+\clearpage
+\begin{table}[h]
+	\caption{Monetary Policy Shocks and Bank Equity Returns on FOMC Days \label{tab:stock_return_on_FOMC_days_Appendix}}
+	\vspace{5mm}
+	\input{../output/Tables/bank_fomc_1y}
+	\vspace{5mm}
+	
+	\footnotesize{\noindent This table reports the estimates of the relation between bank equity returns and monetary policy shocks  on FOMC days. Monetary policy shocks are measured by the one-day changes in the one-year Treasury yield on FOMC days. HHI is the Herfindahl-Hirschman Index of the local deposit market in which the bank operates.  The sample for columns (1) and (3) constitutes observations in which the starting level of the federal funds rate is above 2\%. The sample for columns (2) and (4) constitutes observations in which the starting level of the federal funds rate is below 2\%.   We exclude observations during the collapse of the dot-com bubble (2000-2001) and the  financial crisis (2007-2009). The standard errors are clustered by time.}
+	\label{tab:stock_return_on_FOMC_days_one_year}
+\end{table}
+
+
+\clearpage\newpage
+\begin{table} 
+	\caption{Effects of Low Rates on Banks with Different Deposit Market Power  \label{tab:reversal_lending}}
+	\vspace{5mm}
+	\footnotesize{\noindent We report the estimates of the effect of low interest rates on banks with different deposit market power. HHI is the average Herfindahl-Hirschman Index of the local deposit markets in which a bank operates. Low is a dummy variable that equals one when the federal funds rate is below 2\%. Each column is identified by the dependent variable. The control variables include lagged assets, lending, deposits, equity, deposit rate, loan rate, bank fixed effects, and time fixed effects. The sample includes all U.S.\ banks from 2000Q1 to 2004Q1. Standard errors are clustered by time. \\}
+	\input{../output/Tables/reversal_lending.tex}
+\end{table}
+
+
+\clearpage\newpage
+\begin{table}[h]
+	\caption{Data Moments: Full Sample}
+	\vspace{5mm}
+	\input{../output/Tables/moment_1}
+	\vspace{5mm}
+\end{table}
+
+
+\clearpage\newpage
+\begin{table}[h]
+	\caption{Data Moments: Early Sample}
+	\vspace{5mm}
+	\input{../output/Tables/moment_2}
+	\vspace{5mm}
+\end{table}
+
+
+\clearpage\newpage
+\begin{table}[h]
+	\caption{Data Moments: Late Sample}
+	\vspace{5mm}
+	\input{../output/Tables/moment_3}
+	\vspace{5mm}
+\end{table}
+
+
+\clearpage\newpage
+\begin{table}[h]
+	\caption{Data Moments: Big Banks }
+	\vspace{5mm}
+	\input{../output/Tables/moment_4}
+	\vspace{5mm}
+\end{table}
+
+
+\clearpage\newpage
+\begin{table}[h]
+	\caption{Data Moments: Small Banks}
+	\vspace{5mm}
+	\input{../output/Tables/moment_5}
+	\vspace{5mm}
+\end{table}
+
+
+
+\clearpage \newpage {\color{black}
+	\singlespacing
+	\bibliographystyle{jf}
+	
+	\bibliography{appendix}
+	
+}
+\end{document}

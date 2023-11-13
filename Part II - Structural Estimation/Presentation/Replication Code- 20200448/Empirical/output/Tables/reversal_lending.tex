@@ -1,0 +1,18 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular*}{\hsize}{@{\hskip\tabcolsep\extracolsep\fill}l*{4}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                    &\multicolumn{1}{c}{Equity}&\multicolumn{1}{c}{Equity}&\multicolumn{1}{c}{Loan}&\multicolumn{1}{c}{Loan}\\
+\hline
+HHI*Low             &      -0.232\sym{***}&      -0.083\sym{***}&      -0.252\sym{***}&      -0.055\sym{***}\\
+                    &     (0.007)         &     (0.006)         &     (0.008)         &     (0.006)         \\
+\hline
+Control             &          No         &         Yes         &          No         &         Yes         \\
+Bank F.E.           &         Yes         &         Yes         &         Yes         &         Yes         \\
+Time F.E.           &         Yes         &         Yes         &         Yes         &         Yes         \\
+Observations        &     129,950         &     127,912         &     129,339         &     127,885         \\
+Adj. \(R^{2}\)      &       0.984         &       0.990         &       0.981         &       0.990         \\
+\hline\hline
+\end{tabular*}
+}

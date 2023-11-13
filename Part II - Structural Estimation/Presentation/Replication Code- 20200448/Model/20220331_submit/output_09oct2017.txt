@@ -1,0 +1,682 @@
+{'Grid_adjust' is not found in the current folder or on the MATLAB path, but exists in:
+    C:\Users\yufengwu\Dropbox\4.Bank Market Power\Code\JF\20210808_Submit - Code
+
+<a href = "matlab:matlab.internal.language.commandline.executeCode('cd ''C:\Users\yufengwu\Dropbox\4.Bank Market Power\Code\JF\20210808_Submit - Code''')">Change the MATLAB current folder</a> or <a href = "matlab:matlab.internal.language.commandline.executeCode('addpath ''C:\Users\yufengwu\Dropbox\4.Bank Market Power\Code\JF\20210808_Submit - Code''')">add its folder to the MATLAB path</a>.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('T10_EarlyLate', 'C:\Users\yufengwu\Dropbox\100. Shared Folders\0.Archieve\2021_wKairong,Toni_JF\Monetary Transmission in the Banking System\Code\replication_packet\Model\20220325\Script\T10_EarlyLate.m', 80)" style="font-weight:bold">T10_EarlyLate</a> (<a href="matlab: opentoline('C:\Users\yufengwu\Dropbox\100. Shared Folders\0.Archieve\2021_wKairong,Toni_JF\Monetary Transmission in the Banking System\Code\replication_packet\Model\20220325\Script\T10_EarlyLate.m',80,0)">line 80</a>)
+Par = Grid_adjust(Par);
+} 
+T10_EarlyLate
+ Viter = 1 , error = 0.61681
+ Viter = 2 , error = 0.5417
+ Viter = 3 , error = 0.45036
+ Viter = 4 , error = 0.37596
+ Viter = 5 , error = 0.098938
+ Viter = 6 , error = 0.056523
+ Viter = 7 , error = 0.040186
+ Viter = 8 , error = 0.031049
+ Viter = 9 , error = 0.028387
+ Viter = 10 , error = 0.02642
+ Viter = 11 , error = 0.022818
+ Viter = 12 , error = 0.021171
+ Viter = 13 , error = 0.019759
+ Viter = 14 , error = 0.018554
+ Viter = 15 , error = 0.017159
+ Viter = 16 , error = 0.015772
+ Viter = 17 , error = 0.014469
+ Viter = 18 , error = 0.013172
+ Viter = 19 , error = 0.012054
+ Viter = 20 , error = 0.011185
+ Viter = 21 , error = 0.010451
+ Viter = 22 , error = 0.009771
+ Coff = 1 , R-sqr = 0.92092
+ Coff = 1 , R-sqr = 0.92718
+ Diter = 0 , error = 0.1536      0.1798
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0175    0.0421    0.0668    0.0916    0.1164    0.1412
+
+ Viter = 1 , error = 0.42094
+ Viter = 2 , error = 0.22763
+ Viter = 3 , error = 0.071955
+ Viter = 4 , error = 0.031008
+ Viter = 5 , error = 0.017608
+ Viter = 6 , error = 0.0079449
+ Coff = 1 , R-sqr = 0.98784
+ Coff = 1 , R-sqr = 0.99326
+ Diter = 1 , error = 0.025258     0.03263
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0165    0.0414    0.0664    0.0914    0.1164    0.1412
+
+ Viter = 1 , error = 0.15543
+ Viter = 2 , error = 0.021064
+ Viter = 3 , error = 0.0095647
+ Coff = 1 , R-sqr = 0.99914
+ Coff = 1 , R-sqr = 0.99797
+ Diter = 2 , error = 0.0060872   0.0088028
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0161    0.0413    0.0662    0.0913    0.1163    0.1412
+
+    0.0059    0.0310
+   -0.3852   -0.3420
+    0.1715    0.1030
+    0.0205    0.0195
+    0.0216    0.0263
+    0.6106    0.6790
+    0.0135    0.0130
+    6.0901   12.4600
+    1.7047    2.7670
+   -2.1261   -0.9950
+   -1.5299         0
+
+ Viter = 1 , error = 0.57437
+ Viter = 2 , error = 0.51366
+ Viter = 3 , error = 0.4256
+ Viter = 4 , error = 0.34293
+ Viter = 5 , error = 0.20811
+ Viter = 6 , error = 0.10291
+ Viter = 7 , error = 0.087265
+ Viter = 8 , error = 0.074522
+ Viter = 9 , error = 0.063976
+ Viter = 10 , error = 0.05538
+ Viter = 11 , error = 0.049671
+ Viter = 12 , error = 0.043593
+ Viter = 13 , error = 0.038193
+ Viter = 14 , error = 0.033836
+ Viter = 15 , error = 0.030116
+ Viter = 16 , error = 0.026909
+ Viter = 17 , error = 0.02398
+ Viter = 18 , error = 0.021528
+ Viter = 19 , error = 0.01934
+ Viter = 20 , error = 0.01743
+ Viter = 21 , error = 0.015732
+ Viter = 22 , error = 0.014197
+ Viter = 23 , error = 0.012838
+ Viter = 24 , error = 0.011623
+ Viter = 25 , error = 0.010527
+ Viter = 26 , error = 0.0095459
+ Coff = 1 , R-sqr = 0.2165
+ Coff = 1 , R-sqr = 0.83247
+ Diter = 0 , error = 0.5092     0.17301
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0014    0.0070
+
+ Viter = 1 , error = 0.44432
+ Viter = 2 , error = 0.12971
+ Viter = 3 , error = 0.034608
+ Viter = 4 , error = 0.016073
+ Viter = 5 , error = 0.011396
+ Viter = 6 , error = 0.0080347
+<a href="matlab: opentoline('C:\Users\yufengwu\Dropbox\100. Shared Folders\0.Archieve\2021_wKairong,Toni_JF\Monetary Transmission in the Banking System\Code\replication_packet\Model\20220325\SimulatePanel_short.m',119,1)">119 </a>    end
+if system_dependent('IsDebugMode')==1, dbquit; end
+clc
+clear all
+T10_EarlyLate
+ Viter = 1 , error = 0.61681
+ Viter = 2 , error = 0.5417
+ Viter = 3 , error = 0.45036
+ Viter = 4 , error = 0.37596
+ Viter = 5 , error = 0.098938
+ Viter = 6 , error = 0.056523
+ Viter = 7 , error = 0.040186
+ Viter = 8 , error = 0.031049
+ Viter = 9 , error = 0.028387
+ Viter = 10 , error = 0.02642
+ Viter = 11 , error = 0.022818
+ Viter = 12 , error = 0.021171
+ Viter = 13 , error = 0.019759
+ Viter = 14 , error = 0.018554
+ Viter = 15 , error = 0.017159
+ Viter = 16 , error = 0.015772
+ Viter = 17 , error = 0.014469
+ Viter = 18 , error = 0.013172
+ Viter = 19 , error = 0.012054
+ Viter = 20 , error = 0.011185
+ Viter = 21 , error = 0.010451
+ Viter = 22 , error = 0.009771
+ Coff = 1 , R-sqr = 0.92092
+ Coff = 1 , R-sqr = 0.92718
+ Diter = 0 , error = 0.1536      0.1798
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0175    0.0421    0.0668    0.0916    0.1164    0.1412
+
+ Viter = 1 , error = 0.42094
+ Viter = 2 , error = 0.22763
+ Viter = 3 , error = 0.071955
+ Viter = 4 , error = 0.031008
+ Viter = 5 , error = 0.017608
+ Viter = 6 , error = 0.0079449
+ Coff = 1 , R-sqr = 0.98784
+ Coff = 1 , R-sqr = 0.99326
+ Diter = 1 , error = 0.025258     0.03263
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0165    0.0414    0.0664    0.0914    0.1164    0.1412
+
+ Viter = 1 , error = 0.15543
+ Viter = 2 , error = 0.021064
+ Viter = 3 , error = 0.0095647
+ Coff = 1 , R-sqr = 0.99914
+ Coff = 1 , R-sqr = 0.99797
+ Diter = 2 , error = 0.0060872   0.0088028
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0161    0.0413    0.0662    0.0913    0.1163    0.1412
+
+ Viter = 1 , error = 0.57437
+ Viter = 2 , error = 0.51366
+ Viter = 3 , error = 0.4256
+ Viter = 4 , error = 0.34293
+ Viter = 5 , error = 0.20811
+ Viter = 6 , error = 0.10291
+ Viter = 7 , error = 0.087265
+ Viter = 8 , error = 0.074522
+ Viter = 9 , error = 0.063976
+ Viter = 10 , error = 0.05538
+ Viter = 11 , error = 0.049671
+ Viter = 12 , error = 0.043593
+ Viter = 13 , error = 0.038193
+ Viter = 14 , error = 0.033836
+ Viter = 15 , error = 0.030116
+ Viter = 16 , error = 0.026909
+ Viter = 17 , error = 0.02398
+ Viter = 18 , error = 0.021528
+ Viter = 19 , error = 0.01934
+ Viter = 20 , error = 0.01743
+ Viter = 21 , error = 0.015732
+ Viter = 22 , error = 0.014197
+ Viter = 23 , error = 0.012838
+ Viter = 24 , error = 0.011623
+ Viter = 25 , error = 0.010527
+ Viter = 26 , error = 0.0095459
+ Coff = 1 , R-sqr = 0.2165
+ Coff = 1 , R-sqr = 0.83247
+ Diter = 0 , error = 0.5092     0.17301
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0014    0.0070
+
+ Viter = 1 , error = 0.44432
+ Viter = 2 , error = 0.12971
+ Viter = 3 , error = 0.034608
+ Viter = 4 , error = 0.016073
+ Viter = 5 , error = 0.011396
+ Viter = 6 , error = 0.0080347
+ Coff = 1 , R-sqr = 0.84814
+ Coff = 1 , R-sqr = 0.98306
+ Diter = 1 , error = 0.10693    0.014917
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0038
+
+ Viter = 1 , error = 0.40407
+ Viter = 2 , error = 0.033376
+ Viter = 3 , error = 0.013076
+ Viter = 4 , error = 0.0073085
+ Coff = 1 , R-sqr = 0.97823
+ Coff = 1 , R-sqr = 0.99845
+ Diter = 2 , error = 0.01687    0.011833
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0060
+
+ Viter = 1 , error = 0.12169
+ Viter = 2 , error = 0.0080479
+ Coff = 1 , R-sqr = 0.99537
+ Coff = 1 , R-sqr = 0.99976
+ Diter = 3 , error = 0.0045067   0.0024091
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0005    0.0063
+
+ Viter = 1 , error = 0.57048
+ Viter = 2 , error = 0.41564
+ Viter = 3 , error = 0.29617
+ Viter = 4 , error = 0.21256
+ Viter = 5 , error = 0.15203
+ Viter = 6 , error = 0.13096
+ Viter = 7 , error = 0.11079
+ Viter = 8 , error = 0.09649
+ Viter = 9 , error = 0.085505
+ Viter = 10 , error = 0.076748
+ Viter = 11 , error = 0.069475
+ Viter = 12 , error = 0.060399
+ Viter = 13 , error = 0.052974
+ Viter = 14 , error = 0.054662
+ Viter = 15 , error = 0.04843
+ Viter = 16 , error = 0.045473
+ Viter = 17 , error = 0.03953
+ Viter = 18 , error = 0.034386
+ Viter = 19 , error = 0.031559
+ Viter = 20 , error = 0.027135
+ Viter = 21 , error = 0.024552
+ Viter = 22 , error = 0.022083
+ Viter = 23 , error = 0.019519
+ Viter = 24 , error = 0.017065
+ Viter = 25 , error = 0.015328
+ Viter = 26 , error = 0.013746
+ Viter = 27 , error = 0.012306
+ Viter = 28 , error = 0.011224
+ Viter = 29 , error = 0.0098749
+ Coff = 1 , R-sqr = 0.27678
+ Coff = 1 , R-sqr = 0.74596
+ Diter = 0 , error = 0.48871     0.21874
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0028    0.0083
+
+ Viter = 1 , error = 0.30878
+ Viter = 2 , error = 0.065968
+ Viter = 3 , error = 0.024581
+ Viter = 4 , error = 0.015808
+ Viter = 5 , error = 0.010409
+ Viter = 6 , error = 0.0071839
+ Coff = 1 , R-sqr = 0.85248
+ Coff = 1 , R-sqr = 0.97243
+ Diter = 1 , error = 0.10908    0.025076
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0047
+
+ Viter = 1 , error = 0.21567
+ Viter = 2 , error = 0.029182
+ Viter = 3 , error = 0.01257
+ Viter = 4 , error = 0.0065256
+ Coff = 1 , R-sqr = 0.98147
+ Coff = 1 , R-sqr = 0.99782
+ Diter = 2 , error = 0.022347   0.0053527
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0015    0.0071
+
+ Viter = 1 , error = 0.10268
+ Viter = 2 , error = 0.016364
+ Viter = 3 , error = 0.0039877
+ Coff = 1 , R-sqr = 0.99274
+ Coff = 1 , R-sqr = 0.99982
+ Diter = 3 , error = 0.0091631     0.00192
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0018    0.0074
+
+ Viter = 1 , error = 0.35086
+ Viter = 2 , error = 0.24777
+ Viter = 3 , error = 0.17419
+ Viter = 4 , error = 0.11556
+ Viter = 5 , error = 0.079461
+ Viter = 6 , error = 0.076545
+ Viter = 7 , error = 0.074806
+ Viter = 8 , error = 0.074133
+ Viter = 9 , error = 0.075273
+ Viter = 10 , error = 0.076901
+ Viter = 11 , error = 0.069719
+ Viter = 12 , error = 0.061838
+ Viter = 13 , error = 0.055254
+ Viter = 14 , error = 0.049592
+ Viter = 15 , error = 0.044554
+ Viter = 16 , error = 0.040083
+ Viter = 17 , error = 0.036138
+ Viter = 18 , error = 0.03265
+ Viter = 19 , error = 0.029545
+ Viter = 20 , error = 0.026773
+ Viter = 21 , error = 0.024285
+ Viter = 22 , error = 0.022045
+ Viter = 23 , error = 0.020028
+ Viter = 24 , error = 0.018208
+ Viter = 25 , error = 0.016564
+ Viter = 26 , error = 0.015077
+ Viter = 27 , error = 0.013732
+ Viter = 28 , error = 0.012513
+ Viter = 29 , error = 0.011407
+ Viter = 30 , error = 0.010404
+ Viter = 31 , error = 0.0094926
+ Coff = 1 , R-sqr = 0.25492
+ Coff = 1 , R-sqr = 0.73973
+ Diter = 0 , error = 0.50899     0.22312
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0032    0.0089
+
+ Viter = 1 , error = 0.30835
+ Viter = 2 , error = 0.070538
+ Viter = 3 , error = 0.016268
+ Viter = 4 , error = 0.0085422
+ Coff = 1 , R-sqr = 0.7578
+ Coff = 1 , R-sqr = 0.9522
+ Diter = 1 , error = 0.1589    0.048758
+   1.0e-03 *
+
+    0.1000    0.1000    0.1000    0.1000    0.1000    0.1000    0.1000    0.1000    0.1000    0.1000    0.5000
+
+ Viter = 1 , error = 0.28017
+ Viter = 2 , error = 0.031917
+ Viter = 3 , error = 0.0088028
+ Coff = 1 , R-sqr = 0.96449
+ Coff = 1 , R-sqr = 0.99219
+ Diter = 2 , error = 0.031242    0.020717
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0046
+
+ Viter = 1 , error = 0.12005
+ Viter = 2 , error = 0.0077054
+ Coff = 1 , R-sqr = 0.99253
+ Coff = 1 , R-sqr = 0.99912
+ Diter = 3 , error = 0.013861   0.0052513
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0052
+
+ Viter = 1 , error = 0.085406
+ Viter = 2 , error = 0.003905
+ Coff = 1 , R-sqr = 0.99178
+ Coff = 1 , R-sqr = 0.9995
+ Diter = 4 , error = 0.012042    0.006512
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0001    0.0057
+
+ Viter = 1 , error = 0.56549
+ Viter = 2 , error = 0.52148
+ Viter = 3 , error = 0.41533
+ Viter = 4 , error = 0.22158
+ Viter = 5 , error = 0.076006
+ Viter = 6 , error = 0.041661
+ Viter = 7 , error = 0.030467
+ Viter = 8 , error = 0.021343
+ Viter = 9 , error = 0.013136
+ Viter = 10 , error = 0.013406
+ Viter = 11 , error = 0.015601
+ Viter = 12 , error = 0.014247
+ Viter = 13 , error = 0.013381
+ Viter = 14 , error = 0.013767
+ Viter = 15 , error = 0.015026
+ Viter = 16 , error = 0.015012
+ Viter = 17 , error = 0.014349
+ Viter = 18 , error = 0.013352
+ Viter = 19 , error = 0.01671
+ Viter = 20 , error = 0.021771
+ Viter = 21 , error = 0.023877
+ Viter = 22 , error = 0.029341
+ Viter = 23 , error = 0.032812
+ Viter = 24 , error = 0.03108
+ Viter = 25 , error = 0.030821
+ Viter = 26 , error = 0.029044
+ Viter = 27 , error = 0.028955
+ Viter = 28 , error = 0.028654
+ Viter = 29 , error = 0.028743
+ Viter = 30 , error = 0.028515
+ Viter = 31 , error = 0.028449
+ Viter = 32 , error = 0.027862
+ Viter = 33 , error = 0.026897
+ Viter = 34 , error = 0.026283
+ Viter = 35 , error = 0.024959
+ Viter = 36 , error = 0.023323
+ Viter = 37 , error = 0.021883
+ Viter = 38 , error = 0.020542
+ Viter = 39 , error = 0.019229
+ Viter = 40 , error = 0.018206
+ Viter = 41 , error = 0.017711
+ Viter = 42 , error = 0.017295
+ Viter = 43 , error = 0.016945
+ Viter = 44 , error = 0.016618
+ Viter = 45 , error = 0.01512
+ Viter = 46 , error = 0.013891
+ Viter = 47 , error = 0.014309
+ Viter = 48 , error = 0.01314
+ Viter = 49 , error = 0.012361
+ Viter = 50 , error = 0.01889
+ Viter = 51 , error = 0.023639
+ Viter = 52 , error = 0.036864
+ Viter = 53 , error = 0.041634
+ Viter = 54 , error = 0.044099
+ Viter = 55 , error = 0.027094
+ Viter = 56 , error = 0.037519
+ Viter = 57 , error = 0.029053
+ Viter = 58 , error = 0.036486
+ Viter = 59 , error = 0.026015
+ Viter = 60 , error = 0.034326
+ Viter = 61 , error = 0.026095
+ Viter = 62 , error = 0.033796
+ Viter = 63 , error = 0.025555
+ Viter = 64 , error = 0.032883
+ Viter = 65 , error = 0.025698
+ Viter = 66 , error = 0.032032
+ Viter = 67 , error = 0.025085
+ Viter = 68 , error = 0.030986
+ Viter = 69 , error = 0.024628
+ Viter = 70 , error = 0.029541
+ Viter = 71 , error = 0.024154
+ Viter = 72 , error = 0.028686
+ Viter = 73 , error = 0.023903
+ Viter = 74 , error = 0.027631
+ Viter = 75 , error = 0.023607
+ Viter = 76 , error = 0.027086
+ Viter = 77 , error = 0.023487
+ Viter = 78 , error = 0.026328
+ Viter = 79 , error = 0.023314
+ Viter = 80 , error = 0.025999
+ Viter = 81 , error = 0.023279
+ Viter = 82 , error = 0.025444
+ Viter = 83 , error = 0.023167
+ Viter = 84 , error = 0.025253
+ Viter = 85 , error = 0.023169
+ Viter = 86 , error = 0.024837
+ Viter = 87 , error = 0.023092
+ Viter = 88 , error = 0.024735
+ Viter = 89 , error = 0.023109
+ Viter = 90 , error = 0.024413
+ Viter = 91 , error = 0.023048
+ Viter = 92 , error = 0.02437
+ Viter = 93 , error = 0.023074
+ Viter = 94 , error = 0.024117
+ Viter = 95 , error = 0.023024
+ Viter = 96 , error = 0.024114
+ Viter = 97 , error = 0.023052
+ Viter = 98 , error = 0.023911
+ Viter = 99 , error = 0.023011
+ Viter = 100 , error = 0.023933
+ Viter = 101 , error = 0.023039
+ Coff = 1 , R-sqr = 0.96791
+ Coff = 1 , R-sqr = 0.98549
+ Diter = 0 , error = 0.044378     0.19749
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0185    0.0427    0.0670    0.0914    0.1159    0.1403
+
+ Viter = 1 , error = 0.029408
+ Viter = 2 , error = 0.023025
+ Viter = 3 , error = 0.022021
+ Viter = 4 , error = 0.019533
+ Viter = 5 , error = 0.020567
+ Viter = 6 , error = 0.0239
+ Viter = 7 , error = 0.021308
+ Viter = 8 , error = 0.01752
+ Viter = 9 , error = 0.018989
+ Viter = 10 , error = 0.022399
+ Viter = 11 , error = 0.019665
+ Viter = 12 , error = 0.018193
+ Viter = 13 , error = 0.018167
+ Viter = 14 , error = 0.021182
+ Viter = 15 , error = 0.019894
+ Viter = 16 , error = 0.021572
+ Viter = 17 , error = 0.020628
+ Viter = 18 , error = 0.022928
+ Viter = 19 , error = 0.021312
+ Viter = 20 , error = 0.02235
+ Viter = 21 , error = 0.021471
+ Viter = 22 , error = 0.023528
+ Viter = 23 , error = 0.02207
+ Viter = 24 , error = 0.022854
+ Viter = 25 , error = 0.022162
+ Viter = 26 , error = 0.023812
+ Viter = 27 , error = 0.022645
+ Viter = 28 , error = 0.023019
+ Viter = 29 , error = 0.022652
+ Viter = 30 , error = 0.023861
+ Viter = 31 , error = 0.023054
+ Viter = 32 , error = 0.023086
+ Viter = 33 , error = 0.023007
+ Viter = 34 , error = 0.023847
+ Viter = 35 , error = 0.023335
+ Viter = 36 , error = 0.023095
+ Viter = 37 , error = 0.023251
+ Viter = 38 , error = 0.023821
+ Viter = 39 , error = 0.023533
+ Viter = 40 , error = 0.023119
+ Viter = 41 , error = 0.023428
+ Viter = 42 , error = 0.023805
+ Viter = 43 , error = 0.023672
+ Viter = 44 , error = 0.023144
+ Viter = 45 , error = 0.023557
+ Viter = 46 , error = 0.023795
+ Viter = 47 , error = 0.023774
+ Viter = 48 , error = 0.023174
+ Viter = 49 , error = 0.023652
+ Viter = 50 , error = 0.023786
+ Viter = 51 , error = 0.023845
+ Viter = 52 , error = 0.023199
+ Viter = 53 , error = 0.023722
+ Viter = 54 , error = 0.023775
+ Viter = 55 , error = 0.023896
+ Viter = 56 , error = 0.023222
+ Viter = 57 , error = 0.023773
+ Viter = 58 , error = 0.023762
+ Viter = 59 , error = 0.023931
+ Viter = 60 , error = 0.023241
+ Viter = 61 , error = 0.02381
+ Viter = 62 , error = 0.023748
+ Viter = 63 , error = 0.023955
+ Viter = 64 , error = 0.023257
+ Viter = 65 , error = 0.023838
+ Viter = 66 , error = 0.023734
+ Viter = 67 , error = 0.023971
+ Viter = 68 , error = 0.023272
+ Viter = 69 , error = 0.023858
+ Viter = 70 , error = 0.023721
+ Viter = 71 , error = 0.023981
+ Viter = 72 , error = 0.023286
+ Viter = 73 , error = 0.023873
+ Viter = 74 , error = 0.023708
+ Viter = 75 , error = 0.023987
+ Viter = 76 , error = 0.023299
+ Viter = 77 , error = 0.023884
+ Viter = 78 , error = 0.023696
+ Viter = 79 , error = 0.023991
+ Viter = 80 , error = 0.023311
+ Viter = 81 , error = 0.023893
+ Viter = 82 , error = 0.023685
+ Viter = 83 , error = 0.023992
+ Viter = 84 , error = 0.023323
+ Viter = 85 , error = 0.0239
+ Viter = 86 , error = 0.023674
+ Viter = 87 , error = 0.023993
+ Viter = 88 , error = 0.023334
+ Viter = 89 , error = 0.023905
+ Viter = 90 , error = 0.023664
+ Viter = 91 , error = 0.023992
+ Viter = 92 , error = 0.023344
+ Viter = 93 , error = 0.02391
+ Viter = 94 , error = 0.023654
+ Viter = 95 , error = 0.023992
+ Viter = 96 , error = 0.023353
+ Viter = 97 , error = 0.023914
+ Viter = 98 , error = 0.023645
+ Viter = 99 , error = 0.02399
+ Viter = 100 , error = 0.023362
+ Viter = 101 , error = 0.023917
+ Coff = 1 , R-sqr = 0.99988
+ Coff = 1 , R-sqr = 0.99486
+ Diter = 1 , error = 0.0023718    0.029895
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0186    0.0427    0.0670    0.0914    0.1159    0.1403
+
+ Viter = 1 , error = 0.023636
+ Viter = 2 , error = 0.023139
+ Viter = 3 , error = 0.023372
+ Viter = 4 , error = 0.0231
+ Viter = 5 , error = 0.023588
+ Viter = 6 , error = 0.023169
+ Viter = 7 , error = 0.023394
+ Viter = 8 , error = 0.023141
+ Viter = 9 , error = 0.023596
+ Viter = 10 , error = 0.023207
+ Viter = 11 , error = 0.023424
+ Viter = 12 , error = 0.024029
+ Viter = 13 , error = 0.023619
+ Viter = 14 , error = 0.024064
+ Viter = 15 , error = 0.023455
+ Viter = 16 , error = 0.024012
+ Viter = 17 , error = 0.023641
+ Viter = 18 , error = 0.024055
+ Viter = 19 , error = 0.023488
+ Viter = 20 , error = 0.024013
+ Viter = 21 , error = 0.023659
+ Viter = 22 , error = 0.024057
+ Viter = 23 , error = 0.023513
+ Viter = 24 , error = 0.02402
+ Viter = 25 , error = 0.023672
+ Viter = 26 , error = 0.024063
+ Viter = 27 , error = 0.023531
+ Viter = 28 , error = 0.024029
+ Viter = 29 , error = 0.023677
+ Viter = 30 , error = 0.024069
+ Viter = 31 , error = 0.023542
+ Viter = 32 , error = 0.024037
+ Viter = 33 , error = 0.023677
+ Viter = 34 , error = 0.024074
+ Viter = 35 , error = 0.023548
+ Viter = 36 , error = 0.024043
+ Viter = 37 , error = 0.023674
+ Viter = 38 , error = 0.024077
+ Viter = 39 , error = 0.023552
+ Viter = 40 , error = 0.024047
+ Viter = 41 , error = 0.02367
+ Viter = 42 , error = 0.024079
+ Viter = 43 , error = 0.023555
+ Viter = 44 , error = 0.02405
+ Viter = 45 , error = 0.023666
+ Viter = 46 , error = 0.02408
+ Viter = 47 , error = 0.023559
+ Viter = 48 , error = 0.024052
+ Viter = 49 , error = 0.023663
+ Viter = 50 , error = 0.02408
+ Viter = 51 , error = 0.023562
+ Viter = 52 , error = 0.024054
+ Viter = 53 , error = 0.02366
+ Viter = 54 , error = 0.02408
+ Viter = 55 , error = 0.023565
+ Viter = 56 , error = 0.024056
+ Viter = 57 , error = 0.023657
+ Viter = 58 , error = 0.02408
+ Viter = 59 , error = 0.023568
+ Viter = 60 , error = 0.024057
+ Viter = 61 , error = 0.023654
+ Viter = 62 , error = 0.02408
+ Viter = 63 , error = 0.02357
+ Viter = 64 , error = 0.024058
+ Viter = 65 , error = 0.023652
+ Viter = 66 , error = 0.02408
+ Viter = 67 , error = 0.023573
+ Viter = 68 , error = 0.024059
+ Viter = 69 , error = 0.023649
+ Viter = 70 , error = 0.024079
+ Viter = 71 , error = 0.023575
+ Viter = 72 , error = 0.02406
+ Viter = 73 , error = 0.023647
+ Viter = 74 , error = 0.024079
+ Viter = 75 , error = 0.023577
+ Viter = 76 , error = 0.024061
+ Viter = 77 , error = 0.023645
+ Viter = 78 , error = 0.024078
+ Viter = 79 , error = 0.023579
+ Viter = 80 , error = 0.024061
+ Viter = 81 , error = 0.023643
+ Viter = 82 , error = 0.024078
+ Viter = 83 , error = 0.023581
+ Viter = 84 , error = 0.024062
+ Viter = 85 , error = 0.023641
+ Viter = 86 , error = 0.024078
+ Viter = 87 , error = 0.023583
+ Viter = 88 , error = 0.024062
+ Viter = 89 , error = 0.023639
+ Viter = 90 , error = 0.024077
+ Viter = 91 , error = 0.023585
+ Viter = 92 , error = 0.024063
+ Viter = 93 , error = 0.023638
+ Viter = 94 , error = 0.024077
+ Viter = 95 , error = 0.023587
+ Viter = 96 , error = 0.024063
+ Viter = 97 , error = 0.023636
+ Viter = 98 , error = 0.024076
+ Viter = 99 , error = 0.023588
+ Viter = 100 , error = 0.024064
+ Viter = 101 , error = 0.023635
+ Coff = 1 , R-sqr = 0.99994
+ Coff = 1 , R-sqr = 0.99971
+ Diter = 2 , error = 0.00031995   0.0017519
+    0.0001    0.0001    0.0001    0.0001    0.0001    0.0186    0.0427    0.0670    0.0914    0.1159    0.1403
+
+Panel A: Calibrated Parameters
+Early = 0.35       0.028        0.06           7
+Late = 0.35       0.022        0.06           5
+ 
+Panel B: Parameter Estimated Separately
+Early = 3.17     -3.3052     0.55317         0.7     -6.0052         0.8         0.6        0.04
+Late = 3.59     -5.6052     0.51575         0.9     -5.8052        1.04         0.6       -0.16
+ 
+Panel C: Parameter Estimated via BLP
+Early = 0.743     0.42349      -1.017       3.465       2.763      -0.016
+Late = 0.925     0.52828      -1.454        2.34      -0.444       1.804
+ 
+Panel D: Parameter Estimated via SMD
+Early = 0.04712      0.1843      -9.631        0.01      0.0085      0.0045     0.04787
+Late = 0.043841      0.2537      -9.631        0.01       0.009       0.008     0.01006
+ 
+Contribution of operating costs = 0.33358
+Contribution of market power = 0.2238
+Contribution of low interest rate = 0.44262
+F3_Concentration

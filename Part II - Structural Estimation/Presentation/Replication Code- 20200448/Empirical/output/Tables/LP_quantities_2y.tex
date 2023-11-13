@@ -1,0 +1,16 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular*}{\hsize}{@{\hskip\tabcolsep\extracolsep\fill}l*{5}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
+                    &\multicolumn{1}{c}{Assets}&\multicolumn{1}{c}{Loans}&\multicolumn{1}{c}{Securities}&\multicolumn{1}{c}{Deposits}&\multicolumn{1}{c}{Borrowing}\\
+\hline
+D.Fed funds rate    &      -2.587\sym{*}  &      -1.949         &      -1.232         &      -2.491\sym{*}  &      -3.195         \\
+                    &     [1.366]         &     [1.892]         &     [1.221]         &     [1.329]         &     [5.522]         \\
+\hline
+Bank F.E.           &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+Observations        &     374,483         &     374,256         &     373,323         &     374,403         &     374,454         \\
+Adj. \(R^{2}\)      &       0.983         &       0.975         &       0.923         &       0.976         &       0.899         \\
+\hline\hline
+\end{tabular*}
+}

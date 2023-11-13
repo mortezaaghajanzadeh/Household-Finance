@@ -1,0 +1,23 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular*}{\hsize}{@{\hskip\tabcolsep\extracolsep\fill}l*{3}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                    &\multicolumn{1}{c}{Local wage}&\multicolumn{1}{c}{Bank expenses}&\multicolumn{1}{c}{All}\\
+\hline
+Yield sensitivity   &      -0.950         &      -1.149\sym{***}&      -1.134\sym{***}\\
+                    &     (2.208)         &     (0.311)         &     (0.304)         \\
+[1em]
+Log number of branches&       0.913\sym{***}&       0.935\sym{***}&       0.933\sym{***}\\
+                    &     (0.234)         &     (0.039)         &     (0.038)         \\
+[1em]
+Log number of employees&       0.652\sym{***}&       0.637\sym{***}&       0.638\sym{***}\\
+                    &     (0.175)         &     (0.045)         &     (0.044)         \\
+\hline
+Bank F.E.           &         Yes         &         Yes         &         Yes         \\
+Year-Sector F.E.    &         Yes         &         Yes         &         Yes         \\
+Observations        &      11,394         &      11,394         &      11,394         \\
+Adj. R-squared      &       0.840         &       0.772         &       0.777         \\
+\hline\hline
+\end{tabular*}
+}

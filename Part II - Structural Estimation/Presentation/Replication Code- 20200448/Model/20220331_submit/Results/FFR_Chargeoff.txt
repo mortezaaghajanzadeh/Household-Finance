@@ -1,0 +1,12 @@
+
+
+ FFR and chargeoff process 
+[muf, rhof, stdf, corrAf, muA, rhoA, stdA] 
+
+Full Sample
+   0.3    0.9    1.6  -0.11   -1.3    0.6    1.2
+ Early Sample 
+   1.3    0.7    0.6   0.04   -1.4    0.6    1.0
+ Late Sample 
+  -1.0    0.9    1.4  -0.16   -1.2    0.6    1.3
+ 

@@ -1,0 +1,50 @@
+
+
+ Full sample parameters 
+ 0.007  0.011  0.262  0.001  0.001  0.001  0.006
+ 
+
+ Full sample moment conditions 
+ 0.006  0.021  0.026  0.001  0.002  0.037  0.001  0.494  0.242  0.126  0.376
+ 
+
+ Big bank parameters 
+ 0.001  0.000  0.000  0.003   0.007 
+ 
+
+ Big bank moment conditions 
+ 0.002  0.019  0.025  0.001  0.001  0.032  0.001  0.580  0.077  0.299
+ 
+
+ Small bank parameters 
+ 0.001  0.000  0.000  0.002   0.001 
+ 
+
+ Small bank moment conditions 
+ 0.002  0.005  0.009  0.000  0.000  0.012  0.000  0.198  0.086  0.299 
+
+ Early subsample parameters 
+ 0.002  0.005  0.000  0.001  0.001  0.002 
+
+  Early subsample moment conditions 
+ 0.007  0.028  0.036  0.001  0.002  0.039  0.001  0.640  0.335  0.113  0.476
+ 
+
+ Late subsample parameters 
+ 0.005  0.007  0.004  0.004  0.002  0.005 
+
+  Late subsample moment conditions 
+ 0.011  0.032  0.038  0.001  0.003  0.068  0.001  0.789  0.377  0.085  0.288
+ 
+
+
+ FFR and chargeoff process 
+[muf, rhof, stdf, corrAf, muA, rhoA, stdA] 
+
+Full Sample
+ 0.320  0.040  0.723  0.069  0.177  0.055  0.339
+ Early Sample 
+ 0.170  0.141  0.148  0.435  0.163  0.060  0.255
+ Late Sample 
+ 0.416  0.111  0.885  0.159  0.258  0.068  0.383
+ 

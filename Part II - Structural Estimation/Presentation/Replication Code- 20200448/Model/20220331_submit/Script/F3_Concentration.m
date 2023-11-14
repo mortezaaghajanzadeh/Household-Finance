@@ -1,7 +1,7 @@
 %% Different Market Power
 clear all
-main
-% load('Results\main')  % can directly load solution; otherwise, run main.m
+% main
+load('Results\main')  % can directly load solution; otherwise, run main.m
 
 Ngrid = [3,4,5,6,7,8,10];
 for i = 1:length(Ngrid)
@@ -65,4 +65,5 @@ xlabel("Bank concentration"+newline+"   ",'interpreter','latex')
 xlim([0.1, 0.33])
 legend("Loan rate","Loan quantity",'Orientation','horizontal','location','southoutside','interpreter','latex'); legend boxoff;
 
+saveas(gcf,'replication_figure4.eps','epsc')
 

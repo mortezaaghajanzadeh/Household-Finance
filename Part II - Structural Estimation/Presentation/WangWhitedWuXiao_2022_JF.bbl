@@ -4,4 +4,26 @@
 
 \begin{thebibliography}{xx}
 
+\harvarditem[Bernanke \harvardand\ Blinder]{Bernanke \harvardand\
+  Blinder}{1988}{bernanke1988credit}
+{\bf Bernanke, Ben~S, and Alan~S Blinder.} 1988. ``Credit, money, and aggregate
+  demand.''
+
+\harvarditem[Berry, Levinsohn, \harvardand\ Pakes]{Berry, Levinsohn,
+  \harvardand\ Pakes}{1995}{BLP1995}
+{\bf Berry, Steven, James Levinsohn, and Ariel Pakes.} 1995. ``Automobile
+  Prices in Market Equilibrium.'' {\em Econometrica}, 63(4):~841--890.
+
+\harvarditem[Bolton \harvardand\ Freixas]{Bolton \harvardand\
+  Freixas}{2000}{bolton2000equity}
+{\bf Bolton, Patrick, and Xavier Freixas.} 2000. ``Equity, bonds, and bank
+  debt: Capital structure and financial market equilibrium under asymmetric
+  information.'' {\em Journal of Political Economy}, 108(2):~324--351.
+
+\harvarditem[Drechsler, Savov, \harvardand\ Schnabl]{Drechsler, Savov,
+  \harvardand\ Schnabl}{2017}{drechsler2017deposits}
+{\bf Drechsler, Itamar, Alexi Savov, and Philipp Schnabl.} 2017. ``The deposits
+  channel of monetary policy.'' {\em The Quarterly Journal of Economics},
+  132(4):~1819--1876.
+
 \end{thebibliography}

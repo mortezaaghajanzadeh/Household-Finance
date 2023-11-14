@@ -1,7 +1,7 @@
 clear all
 % main
 load('Results\main')  % can directly load solution; otherwise, run main.m
-load ('spread_data.mat') 
+load ('Data\spread_data.mat') 
 
 log_FFR = log(data(:,4));
 
@@ -63,7 +63,7 @@ ylim([0,0.08])
 xlabel("Federal funds rate"+newline+ "   "+newline+ "   ")
 ylabel('Loan rate')
 % legend('Raw data','Local polynomial smooth plots using raw data','Model predictions','location','southoutside','Orientation','horizontal'); legend boxoff
-saveas(gcf,'replication_figure3.pdf')
+saveas(gcf,'replication_figure3.eps','epsc')
 
 
 
@@ -94,4 +94,4 @@ ylim([-0.03,0.05])
 xlabel("Federal funds rate"+newline+ "   "+newline+ "   ")
 ylabel('Loan spreads')
 % legend('Raw data','Local polynomial smooth plots using raw data','Model predictions','location','bestoutside','Orientation','horizontal'); legend boxoff
-saveas(gcf,'replication_figure1.pdf')
+saveas(gcf,'replication_figure1.eps','epsc')

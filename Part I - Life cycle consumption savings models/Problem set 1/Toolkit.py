@@ -220,6 +220,8 @@ def simulate_model(T, rw, rr, Xw, Cw, Y_lower, t_w, t_r, g_t, ρ_z, N, N_a, Xr, 
         plt.plot([start + t_w]*100,np.linspace(-2,A_mean.max() + 5,100),linestyle='--',color='black',linewidth=0.5)
 
         plt.legend(['Consumption','Assets','Income'])
+        plt.xlabel('Age')
+        plt.title('The mean of the simulated model')
         
         plt.grid()
         

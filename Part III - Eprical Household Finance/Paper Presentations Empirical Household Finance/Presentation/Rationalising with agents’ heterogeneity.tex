@@ -24,17 +24,17 @@
 
 
 
-% \AtBeginSection[]
-% {
-% 	\begin{frame}{Table of Contents}
-% 		% \scriptsize
-% 			\tableofcontents[hideallsubsections,hideothersubsections,currentsection]
-% 	\end{frame}
-% }	
+\AtBeginSection[]
+{
+	\begin{frame}{Table of Contents}
+		% \scriptsize
+			\tableofcontents[hideallsubsections,hideothersubsections,currentsection]
+	\end{frame}
+}	
 
 % Title page
-\title[Rationalising with agents’ heterogeneity]{ \textbf{Rationalising with agents’ heterogeneity}}
-\subtitle{based on\\ \textit{\cite{aguiar2023hand}} and \textit{\cite{kaplan2014model}}}
+\title[Rationalizing MPC with agents’ heterogeneity]{ \textbf{Rationalizing MPC with agents’ heterogeneity}}
+
 \author[Morteza]{Seyyed Morteza Aghajanzadeh}
 \institute[HH Finance]{Households Finance}
 \date{\today}
@@ -43,11 +43,6 @@
 
 \begin{frame}
     \titlepage
-\end{frame}
-
-\begin{frame}
-	\frametitle{Table of Contents}
-	\tableofcontents[hideallsubsections]
 \end{frame}
 
 \section{Introduction}
@@ -132,7 +127,7 @@
 	\begin{itemize}
 		\item<1-> They try to model the distribution of \textbf{wealth} (answer the inequality question) and \textbf{MPC} (high estimated value of MPC).
 		\item <2-> They solve a model with HH-specific income process including permanent and transitory shocks.
-		\item <3-> They also allow for HH to have different discount preferences (like impatience, proxying for many characteristics including age, optimism, and risk aversion) or equivalently different beliefs about the future.
+		\item <3-> They also allow for HH to have different preferences (like impatience, proxying for many characteristics including age, optimism, and risk aversion) or equivalently different beliefs about the future.
 		\item<4->[] They calibrate the model to match the empirical targets
 	\end{itemize}
 \end{frame}
@@ -160,14 +155,15 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Canonical consumption model}
+\begin{frame}{Canonical Consumption Model}
 	\label{canonical}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.7\linewidth]{Figures/baseline_model.png}
 	\end{figure}
 
-\hyperlink{fact2}{\beamerbutton{Fact 2}}
+\hyperlink{fact2}{\beamerbutton{Fact 2}} 
+\hyperlink{fact3}{\beamerbutton{Fact 3}}
 \end{frame}
 \begin{frame}{Identifying the H2M}
 	\begin{itemize}
@@ -213,6 +209,8 @@
 		\centering
 		\includegraphics[width=0.7\linewidth]{Figures/Table5.png}
 	\end{figure}
+	
+\hyperlink{canonical}{\beamerbutton{Canonical Model}}
 \end{frame}
 
 \begin{frame}{Fact 4 - H2M Are More Elastic at Extensive Spending Margin}
@@ -222,6 +220,14 @@
 		\includegraphics[width=0.5\linewidth]{Figures/Table6.png}
 	\end{figure}
 \end{frame}
+\begin{frame}{Fact 4 - H2M Are More Elastic at Extensive Spending Margin}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\linewidth]{Figures/Table7.png}
+	\end{figure}
+\end{frame}
+
+
 
 \begin{frame}{Model Setup}
 	The mentioned facts show that preference heterogeneity plays a key role in the H2M behavior.
@@ -239,6 +245,16 @@
 		\centering
 		\includegraphics[width=0.85\linewidth]{Figures/Table13.png}
 	\end{figure}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+	\begin{itemize}
+		\item <1-> The observed MPC is high and heterogeneous across households.
+		\item <2-> The H2M behavior is a key driver of the high and heterogeneous MPC.
+		\item <3-> The H2M differs from the liquidity constrained HHs in the sense that they have the ability to smooth their consumption but they choose not to.
+		\item <4-> The H2M behavior is driven by the preference heterogeneity.
+	\end{itemize}
 \end{frame}
 
 

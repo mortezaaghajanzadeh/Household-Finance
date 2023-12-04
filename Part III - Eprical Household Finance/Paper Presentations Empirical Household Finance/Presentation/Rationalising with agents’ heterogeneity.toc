@@ -1,4 +1,0 @@
-\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
-\beamer@sectionintoc {2}{Heterogeneous Assets}{8}{0}{2}
-\beamer@sectionintoc {3}{Heterogeneous Preferences/Expectations}{19}{0}{3}
-\beamer@sectionintoc {4}{Heterogeneous Beliefs with Heterogeneous Assets}{27}{0}{4}

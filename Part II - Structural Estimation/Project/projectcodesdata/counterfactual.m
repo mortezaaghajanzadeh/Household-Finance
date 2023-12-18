@@ -127,7 +127,7 @@ for t=calibr.T:-1:1
 clc
 disp("age in the backward optimization: " + t)
 
-Wp = ( exp(w.Grid) + exp(calibr.g*t) - param.phi.*(pi.Grid>0) ).*(1 - c.Grid).*(pi.Grid.*R.Grid + (1-pi.Grid)*calibr.Rf); 
+Wp = ( exp(w.Grid) + exp(calibr.g*t) - param.phi.*(pi.Grid>0) ).*(1 - c.Grid).*((pi.Grid.*R.Grid + (1-pi.Grid)*calibr.Rf) * (1- param.capital_tax)); 
 Wp(Wp<=0) = nan;
 
 Rp = repmat(R.Grid,[w.N,c.N*pi.N,1]);

@@ -36,14 +36,20 @@ Allp = LB + Allp.*(UB-LB);
 % 
 % end
 
-load('simmulation 1000 m all.mat')
+load("Allp.mat")
+load('Allm.mat')
 
 
 
 %%
 
 clc
-tMoments = true(1,7); %%% just a test, include all
+tMoments = false(1,7); %%% just a test, include all
+
+for v = [1 3 4 6]
+    tMoments(v) = true;
+end
+
 
 X = makeitpoly(Allp,2);
 % Y = Allm(1:400,:);

@@ -1,4 +1,4 @@
-function [m,sPi,sW] = simul(paramvec,nSimul,useGPU)
+function [m,sPi,sW] = simul(paramvec,nSimul,useGPU,capital_tax)
 
 
 %% Input Parameters
@@ -16,6 +16,7 @@ calibr.rf = .01;
 calibr.g = 0.01;
 calibr.b = 20;
 calibr.T = 45;
+calibr.capital_tax = capital_tax;
 
 
 
@@ -121,7 +122,7 @@ V(:,end) = calibr.b*exp(w.Grid).^(1-param.gamma)./(1-param.gamma);
 for t=calibr.T:-1:1
 
 
-Wp = (1 - c.Grid).*( exp(w.Grid) + exp(calibr.g*t)*(1 - param.phi.*(pi.Grid>0) ) ).*(pi.Grid.*R.Grid + (1-pi.Grid)*calibr.Rf); 
+Wp = (1 - c.Grid).*( exp(w.Grid) + exp(calibr.g*t)*(1 - param.phi.*(pi.Grid>0) ) ).*((pi.Grid.*R.Grid + (1-pi.Grid)*calibr.Rf) * (1- calibr.capital_tax)); 
 Wp(Wp<=0) = nan;
 
      

@@ -12,11 +12,10 @@ nSimul = 100000;
 param.beta = 0.92;
 param.gamma = 2;
 param.phi = .005;
-param.capital_tax = 0.0;
-m = simul([param.beta param.gamma param.phi param.capital_tax],nSimul,useGPU);
+m = simul([param.beta param.gamma param.phi],nSimul,useGPU,0.0);
 
 %%
-m2 = simul_counter([param.beta param.gamma param.phi param.capital_tax],nSimul,useGPU);
+m2 = simul_counter([param.beta param.gamma param.phi],nSimul,useGPU,0.0);
 
 %%
 

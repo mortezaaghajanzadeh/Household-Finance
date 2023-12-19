@@ -7,9 +7,10 @@ clc
 useGPU = 0;
 
 %% Parameters
-param.beta = 0.9519;
-param.gamma = 2.0143;
-param.phi = .0024;
+load("estimated_point")
+param.beta = x(1);
+param.gamma = x(2);
+param.phi = x(3);
 
 %% baseline
 nSimul = 100000;

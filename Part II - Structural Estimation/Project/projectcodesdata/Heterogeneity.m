@@ -6,10 +6,10 @@ useGPU = 0;
 %%
 disp("The estimated simulation")
 nSimul = 100000;
-%%% foundamentals [to be estimated, random numbers here: as an example]
-param.beta = 0.9519;
-param.gamma = 2.0143;
-param.phi = .0024;
+load("estimated_point")
+param.beta = x(1);
+param.gamma = x(2);
+param.phi = x(3);
 m = simul([param.beta param.gamma param.phi],nSimul,useGPU,0.0);
 %% Type I
 disp("The simulation for type I")

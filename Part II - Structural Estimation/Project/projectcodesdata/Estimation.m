@@ -23,11 +23,15 @@ for v = [1 3 4 6] % 1-participation rate 3-conditional mean risky share 4-mean w
     tMoments(v) = true;
 end
 moment.tMoments = tMoments;
+
+targetm = readtable('data_moments.txt'); targetm = targetm{:,:};
 moment.targetm = targetm;
 %% Estimation
 x = point_estimate(training,moment,constrains);
 
-m = simul([param.beta param.gamma param.phi],nSimul,useGPU,0.0);
+save("estimated_point.mat","x")
+
+m = simul(x,nSimul,useGPU,0.0);
 
 disp("Estimated values")
 disp(x)

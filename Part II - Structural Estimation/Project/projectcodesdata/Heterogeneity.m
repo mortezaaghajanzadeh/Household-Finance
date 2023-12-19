@@ -50,3 +50,6 @@ moment.targetm = (m_1 * nSimul_1 + m_2 * nSimul_2) / (nSimul_1 + nSimul_2);
 
 disp("The estimation by hetrogenous moments")
 x = point_estimate(training,moment,constrains)
+%%
+
+

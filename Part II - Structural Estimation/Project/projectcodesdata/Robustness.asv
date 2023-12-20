@@ -32,7 +32,7 @@ moment.tMoments = tMoments;
 
 
 %% Generate the Nosie
-n_noise = 1000;
+n_noise = 5000;
 targetm = readtable('data_moments.txt'); targetm = targetm{:,:};
 moment.targetm = targetm;
 mean_wealth_noisy_moments = targetm(4) + 0.1 * randn(n_noise,1);
@@ -62,13 +62,11 @@ for i = 1:3
     plot(sorted_moments, sorted_params(:, i), '-', 'LineWidth', 1.5);
     xlabel('$E[W_{it}]$','Interpreter','latex');
     ylabel(labels(i),'Interpreter','latex','Rotation',1)
-%     title('Robustness Check for ' + titles(i),'Interpreter','latex');
-    yline(x(i),'g')
-    mean_value = mean(estimated_values(:,i));
+    title('Robustness Check for ' + titles(i),'Interpreter','latex');
+    mean_estimate = mean(estimated_values(:,i));
+    yline(x(i),'r')
     conf_term_2 = 1.96 * (var(estimated_values(:,i)) / length(estimated_values))^0.5;
-    yline(mean_value,'r')
-    yline(mean_value + conf_term_2 ,'-.r')
-    yline(mean_value - conf_term_2 ,'-.r')
+    yline(x(i),'r')
     grid on;
     fig_name = 'robustness_check_parameter' + names(i) + '.png' ;
     saveas(gcf, fig_name);
@@ -130,7 +128,7 @@ names = ["beta" "gamma" "phi"];
 for i=1:3
     figure(i)
     y = Y_agg(i,:);
-    conf_term = 1.96 * std_agg(i,:)/ (length(std_agg(i,:)) ^ 0.5);
+    conf_term = 1.96 * std_agg(i,:);
     errorbar(x,y(2:4),conf_term(2:4),"o")
     mean_value = mean(estimated_values(:,i));
     conf_term_2 = 1.96 * (var(estimated_values(:,i)) / length(estimated_values))^0.5;
@@ -139,7 +137,7 @@ for i=1:3
     yline(mean_value - conf_term_2 ,'-.r')
     grid on
     ylabel(labels(i),'Interpreter','latex','Rotation',1)
-%     title('Moment Inclusion for ' + titles(i),'Interpreter','latex');
+    title('Moment Inclusion for ' + titles(i),'Interpreter','latex');
     grid on;
     fig_name = 'moment_inclusion_check_parameter' + names(i) + '.png' ;
     saveas(gcf, fig_name);

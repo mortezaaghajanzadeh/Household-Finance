@@ -3,6 +3,7 @@ clear
 close all
 clc
 useGPU = 0;
+rng(13571122)
 %%
 nSimul = 100000;
 %%% Estimated Values
@@ -54,6 +55,7 @@ mean(estimated_values), std(estimated_values),var(estimated_values)
 sorted_params = estimated_values(sort_idx, :);
 
 labels = ["$\hat{\beta}$" "$\hat{\gamma}$" "$\hat{\phi}$"];
+labels_2 = ["$\tilde{\beta}$" "$\tilde{\gamma}$" "$\tilde{\phi}$"];
 titles = ["$\beta$" "$\gamma$" "$\phi$"];
 names = ["beta" "gamma" "phi"];
 
@@ -67,17 +69,33 @@ for i = 1:3
     mean_value = mean(estimated_values(:,i));
     conf_term_2 = 1.96 * (var(estimated_values(:,i)) / length(estimated_values))^0.5;
     yline(mean_value,'r')
+    xline(moment.targetm(4),'-.')
     yline(mean_value + conf_term_2 ,'-.r')
     yline(mean_value - conf_term_2 ,'-.r')
     grid on;
     fig_name = 'robustness_check_parameter' + names(i) + '.png' ;
     saveas(gcf, fig_name);
+
+    figure(i*5)
+    plot((sorted_moments - mean(sorted_moments) ) / std(sorted_moments) ...
+        ,(sorted_params(:, i) - mean(sorted_params(:, i)) ) / std(sorted_params(:, i)), '-', 'LineWidth', 1.5);
+    xlabel('$\tilde{E[W_{it}]}$','Interpreter','latex');
+    ylabel(labels_2(i),'Interpreter','latex','Rotation',1)
+%     title('Robustness Check for ' + titles(i),'Interpreter','latex');
+    yline(0,'-.')
+    xline(0,'-.')
+    grid on;
+    fig_name = 'robustness_check_parameter_normalize_' + names(i) + '.png' ;
+    saveas(gcf, fig_name);
+
 end
+%% 
+
 
 
 
 %% Add new moments
-close all
+
 moment.targetm = targetm;
 moment.tMoments = tMoments;
 
@@ -117,6 +135,7 @@ end
 
 
 %%
+close all
 X = ["Base line" "E[\pi_{it}]" "\sigma[W_{it}]" "\sigma[W_{iT}]"];
 x=categorical(X(2:4));
 Y_agg = [Y.beta; Y.gamma ;Y.phi];

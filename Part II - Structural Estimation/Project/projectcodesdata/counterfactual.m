@@ -11,14 +11,11 @@ load("estimated_point")
 param.beta = x(1);
 param.gamma = x(2);
 param.phi = x(3);
-
-%% baseline
 nSimul = 100000;
+%% baseline
 m = simul([param.beta param.gamma param.phi],nSimul,useGPU,0.0);
-
 %% adding tax
 m_tax = simul([param.beta param.gamma param.phi],nSimul,useGPU,0.3);
-
 %% Add tax with zero participation cost
 m_0 = simul([param.beta param.gamma 0],nSimul,useGPU,0.3);
 

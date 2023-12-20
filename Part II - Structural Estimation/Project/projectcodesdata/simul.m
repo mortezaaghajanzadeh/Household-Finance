@@ -16,7 +16,7 @@ calibr.rf = .01;
 calibr.g = 0.01;
 calibr.b = 20;
 calibr.T = 45;
-calibr.capital_tax = capital_tax;
+calibr.tau  = capital_tax;
 
 
 
@@ -121,9 +121,9 @@ V(:,end) = calibr.b*exp(w.Grid).^(1-param.gamma)./(1-param.gamma);
 % tic
 for t=calibr.T:-1:1
 
-
+ 
 Wp = (1 - c.Grid).*( exp(w.Grid) + exp(calibr.g*t)*(1 - param.phi.*(pi.Grid>0) ) ).*( ...
-    (pi.Grid.*R.Grid* (1- calibr.capital_tax) + (1-pi.Grid)*calibr.Rf * (1- calibr.capital_tax))  ...
+    (pi.Grid.*R.Grid* (1- calibr.tau ) + (1-pi.Grid)*calibr.Rf * (1- calibr.tau) + calibr.tau)  ...
     ); 
 Wp(Wp<=0) = nan;
 

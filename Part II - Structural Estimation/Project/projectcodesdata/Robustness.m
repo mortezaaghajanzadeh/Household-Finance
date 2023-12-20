@@ -117,7 +117,7 @@ end
 
 
 %%
-X = ["$Base line$" "$E[\pi_{it}]$" "$\sigma[W_{it}]$" "$\sigma[W_{iT}]$"];
+X = ["Base line" "E[\pi_{it}]" "\sigma[W_{it}]" "\sigma[W_{iT}]"];
 x=categorical(X(2:4));
 Y_agg = [Y.beta; Y.gamma ;Y.phi];
 std_agg = [std.beta; std.gamma; std.phi];

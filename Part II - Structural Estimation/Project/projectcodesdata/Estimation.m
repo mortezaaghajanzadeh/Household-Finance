@@ -29,7 +29,7 @@ moment.targetm = targetm;
 %% Estimation
 x = point_estimate(training,moment,constrains);
 
-save("estimated_point.mat","x")
+save("data/estimated_point.mat","x")
 
 m = simul(x,nSimul,useGPU,0.0);
 

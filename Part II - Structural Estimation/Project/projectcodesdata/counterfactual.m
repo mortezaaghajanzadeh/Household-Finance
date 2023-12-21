@@ -28,5 +28,5 @@ T = array2table(results');
 
 T.Properties.VariableNames(1:4) = {'$\tau =0$','$\tau =30\%$','$\tau =30\% \hspace{0.5em}\& \hspace{0.5em} \phi = 0$','$\tau =30\% \hspace{0.5em}\& \hspace{0.5em} \gamma = 2\gamma$'};
 T.Properties.RowNames(1:7) = ["$E[\pi_{it}>0]$", "$E[\pi_{it}]$","$E[\pi_{it}|\pi_{it}>0]$", '$E[W_{it}]$',"$\sigma[W_{it}]$",'$E[W_{iT}]$',"$\sigma[W_{iT}]$"];
-table2latex(T,'./counterfactual_moments.tex')
+table2latex(T,'out/counterfactual_moments.tex')
 T

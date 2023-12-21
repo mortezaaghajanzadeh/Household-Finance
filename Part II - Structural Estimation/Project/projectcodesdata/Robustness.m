@@ -73,7 +73,7 @@ for i = 1:3
     yline(mean_value + conf_term_2 ,'-.r')
     yline(mean_value - conf_term_2 ,'-.r')
     grid on;
-    fig_name = 'robustness_check_parameter' + names(i) + '.png' ;
+    fig_name = 'out/robustness_check_parameter' + names(i) + '.png' ;
     saveas(gcf, fig_name);
 
     figure(i*5)
@@ -85,7 +85,7 @@ for i = 1:3
     yline(0,'-.')
     xline(0,'-.')
     grid on;
-    fig_name = 'robustness_check_parameter_normalize_' + names(i) + '.png' ;
+    fig_name = 'out/robustness_check_parameter_normalize_' + names(i) + '.png' ;
     saveas(gcf, fig_name);
 
 end
@@ -160,7 +160,7 @@ for i=1:3
     ylabel(labels(i),'Interpreter','latex','Rotation',1)
 %     title('Moment Inclusion for ' + titles(i),'Interpreter','latex');
     grid on;
-    fig_name = 'moment_inclusion_check_parameter' + names(i) + '.png' ;
+    fig_name = 'out/moment_inclusion_check_parameter' + names(i) + '.png' ;
     saveas(gcf, fig_name);
 end
 

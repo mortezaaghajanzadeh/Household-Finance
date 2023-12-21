@@ -49,19 +49,19 @@ moment.tMoments = tMoments;
 moment.targetm = (m_1 * nSimul_1 + m_2 * nSimul_2) / (nSimul_1 + nSimul_2);
 
 disp("The estimation by hetrogenous moments")
-x = point_estimate(training,moment,constrains)
+x = point_estimate(training,moment,constrains);
 %%
 results = [m; m_1; m_2; moment.targetm];
 T = array2table(results');
 T.Properties.VariableNames(1:4) = {'m','$m^I$','$m^{II}$','$m^*$'};
 T.Properties.RowNames(1:7) = ["$E[\pi_{it}>0]$", "$E[\pi_{it}]$","$E[\pi_{it}|\pi_{it}>0]$", '$E[W_{it}]$',"$\sigma[W_{it}]$",'$E[W_{iT}]$',"$\sigma[W_{iT}]$"];
-table2latex(T,'./heterogeneity_moments.tex')
+table2latex(T,'out/heterogeneity_moments.tex')
 T
 %%
 estimation_results = [[param.beta param.gamma param.phi]; [param_1.beta param_1.gamma param_1.phi]; [param_2.beta param_2.gamma param_2.phi]; x]';
 T = array2table(estimation_results);
 T.Properties.VariableNames(1:4) = ['Previous Estimation', "Type I","Type II", "Estimated Value"];
 T.Properties.RowNames(1:3) = ["$\beta$" "$\gamma$" "$\phi$"];
-table2latex(T,'./heterogeneity_estimation.tex')
+table2latex(T,'out/heterogeneity_estimation.tex')
 T
 

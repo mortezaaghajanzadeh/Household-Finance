@@ -15,13 +15,29 @@ his project aims to estimate three parameters, time discount factor, risk aversi
 We are using the "approximate" SMM method, so first we need to generate the simulated moments by choosing some values for the three parameters. We will do this by running the following code:
     
     ```Train.m```
+
 we will save the selected parameters in the file ```Allp.mat``` and the simulated moments in the file ```Allm.mat```. Then we will run the following code to estimate the parameters:
 
     ```Estimation.m```
 The estimated parameters will be saved in the file ```estimated_point.mat```.
 
 
+## Counterfactual Analysis
+We modify the simul function to include the tax on capital income. Then we run the following code to generate the simulated moments for different scenarios:
 
-## Contact
+    ```Counterfactual.m```
 
-How others can reach out to you for questions or support.
+
+## Robustness
+We run the following code to estimate the parameters for different scenarios that we have in the project:
+
+    ```Robustness.m```
+
+
+
+## Subsample Heterogeneity
+We run the following code to estimate the parameters for different subsamples that we have in the project:
+
+    ```Subsample.m```
+
+

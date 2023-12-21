@@ -12,12 +12,12 @@ training.Allp = Allp;
 training.Allm = Allm;
 
 %% Estimation boundry
-constrains.LB = [.8 1.01 0];
-constrains.UB = [.99 5 .01];
+constrains.LB = [.8 1.01 0]; %% Lower bound
+constrains.UB = [.99 5 .01]; %% Upper bound
 
 %% Load Moments
 
-tMoments = false(1,7); %%% just a test, include all
+tMoments = false(1,7);
 
 for v = [1 3 4 6] % 1-participation rate 3-conditional mean risky share 4-mean wealth 6-mean wealth at retirement
     tMoments(v) = true;

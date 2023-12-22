@@ -1,0 +1,112 @@
+\documentclass[a4paper]{article}
+% \linespread{1.2}
+\usepackage{comment}
+\usepackage{ragged2e}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{pdflscape}
+\usetikzlibrary{arrows}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{pdflscape}
+
+\usepackage{color,soul}
+
+
+\title{\textbf{Research Proposal}}
+\author{}
+\date{}
+
+\newcommand{\namelistlabel}[1]{\mbox{#1}\hfil}
+\newenvironment{namelist}[1]{%1
+	\begin{list}{}
+		{
+			\let\makelabel\namelistlabel
+			\settowidth{\labelwidth}{#1}
+			\setlength{\leftmargin}{1.1\labelwidth}
+		}
+	}{%1
+\end{list}}
+
+\captionsetup{font=footnotesize,labelfont=footnotesize}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=blue
+}
+
+\usepackage{natbib}
+\usepackage[title]{appendix}
+
+
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+
+\renewcommand{\today}{\ifcase \month \or January\or February\or March\or %
+April\or May \or June\or July\or August\or September\or October\or November\or %
+December\fi, \number \year} 
+
+
+
+\def\boxit#1{%
+  \smash{\color{red}\fboxrule=1pt\relax\fboxsep=2pt\relax%
+  \llap{\rlap{\fbox{\vphantom{0}\makebox[#1]{}}}~}}\ignorespaces
+}
+
+
+\usepackage{lipsum}
+
+\begin{document}
+\maketitle
+\begin{namelist}{xxxxxxxxxxxx}
+	\item[{\bf Title:}]
+	\textit{"Market Based Asset Pricing"}
+	\item[{\bf Author:}]
+	\textit{ Seyyed Morteza Aghajanzadeh}
+	\item[{\bf Recivers:}]
+	\textit{Paul Huebner (HH Finance Course 2023)}
+	\item[{\bf Institution:}]
+	\textit{	Stockholm School of Economics}
+\end{namelist}
+
+
+\section*{Research Objective}
+
+
+
+\section*{Motivation}
+
+
+\section*{Data}
+
+
+\section*{Methodology}
+
+
+\section*{Contribution}
+This paper shed light on the economic value of patent disclosure on the firm side. The results of this paper will be of interest to policymakers, inventors, and firms. The findings will also be of interest to the academic community, particularly those studying the patenting process and its economic value.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	
+
+
+
+	{
+	\footnotesize
+	\bibliographystyle{aea}
+	\bibliography{literature}
+}
+
+\end{document}

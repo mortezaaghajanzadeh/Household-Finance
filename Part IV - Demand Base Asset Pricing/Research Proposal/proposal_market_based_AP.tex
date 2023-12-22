@@ -72,28 +72,56 @@ December\fi, \number \year}
 	\textit{"Market Based Asset Pricing"}
 	\item[{\bf Author:}]
 	\textit{ Seyyed Morteza Aghajanzadeh}
-	\item[{\bf Recivers:}]
-	\textit{Paul Huebner (HH Finance Course 2023)}
+	\item[{\bf Supervisor:}]
+	\textit{Paul Huebner \\ HH Finance Course 2023}
 	\item[{\bf Institution:}]
 	\textit{	Stockholm School of Economics}
 \end{namelist}
 
 
 \section*{Research Objective}
-
+Demand Based Asset Pricing has succeeded to answer some of the questions that the traditional asset pricing models have failed to answer. However, the supply side of the market has been neglected in this literature. In this paper, I will try to estimate the supply side of the market and explore how it interacts with the demand side to shape the asset prices.
 
 
 \section*{Motivation}
+\textit{What is the price of a bottle of milk?}  It's a simple question, yet not one we can answer with a formula. The price, you see, is shaped by the interaction between what people want (demand) and how much is available (supply). A market is like a bustling meeting point where buyers and sellers come together to trade goods and services.
+
+Now, switch to a different question: What determines the price of an equity? This question has puzzled us for a long time, leading to various models attempting an answer. One recent perspective is the Demand Based Asset Pricing (DBAP) approach. Here, the price of a stock is tied to how much people want it. Since the supply is fixed, the demand side—represented by investors holding the stock—takes the lead in figuring out the price.
+
+But, let's recall the milk question. To understand its price, we need to consider both sides: how much milk is available and how much people want it. Interestingly, the DBAP models mostly focus on the demand side, leaving the supply side in the shadows.
+
+In this paper, I aim to uncover the mystery of the supply side in the market, exploring how it interacts with demand to shape stock prices. It's like completing the puzzle to understand the full picture of pricing dynamics!
+
 
 
 \section*{Data}
+For the estimation, we need the holding data which we can get from the 13F filings which is public. We also need the price data which we can get from the CRSP, for the characteristics of the stocks we  need Compustat. All of these data are available through SHoF.
 
 
 \section*{Methodology}
+Following the paper by \cite{koijen2019demand}, we estimate a logit "demand curve" and "supply curve" by using the following equations:
+\begin{equation}
+	\dfrac{\omega_i^D(n)}{\omega_i(0)} = \exp\left(
+		\beta_{i0} p(n) + \sum_k \beta_{ik} X_k^D(n)
+	\right) \varepsilon_i^D(n)
+\end {equation}
 
+\begin{equation}
+	\dfrac{\omega_i^S(n)}{\omega_i(0)} = \exp\left(
+		\gamma_{i0} p(n) + \sum_k \gamma_{ik} X_k^S(n)
+	\right) \varepsilon_i^S(n)
+\end {equation}
+
+Here, $\omega_i^D(n)$ and $\omega_i^S(n)$ represent the demand and supply weights of investor $i$ for asset $n$, respectively. If investor $i$ buy (sell) asset $n$, then we calculate $\omega_i^D(n)$ ($\omega_i^S(n)$). Other variables are based on the KY paper but with a slight modification to capture the difference between supply and demand. $p(n)$ is the price of asset $n$ and  $X_k^D(n)$ and $X_k^S(n)$ stand for the demand and supply characteristics of asset $n$, respectively. $\varepsilon_i^D(n)$ and $\varepsilon_i^S(n)$ are the demand and supply shocks of asset $n$ for investor $i$, respectively.
+We need to estimate $\beta_{i0}$, $\beta_{ik}$, $\gamma_{i0}$, and $\gamma_{ik}$.
+
+After estimating the demand and supply curves, we need to find the price that clears the market. We can do that by setting the demand equal to the supply.
+\begin{equation}
+	\sum_i \omega_i^D(n)A_i = \sum_i \omega_i^S(n)A_i
+\end{equation}
 
 \section*{Contribution}
-This paper shed light on the economic value of patent disclosure on the firm side. The results of this paper will be of interest to policymakers, inventors, and firms. The findings will also be of interest to the academic community, particularly those studying the patenting process and its economic value.
+This paper will complete the last pieces of puzzle to understand the full picture of pricing dynamics. This will add the supply side to the DBAP models and explore how it interacts with the demand side to shape the asset prices. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
